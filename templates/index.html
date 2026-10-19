@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}Portafolio | Tu nombre{% endblock %}
+{% block content %}
+<header class="site-header" id="inicio">
+  <a class="brand" href="#inicio" aria-label="Volver al inicio"><span class="brand-spark">✦</span><span>Tu Nombre</span></a>
+  <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú"><span></span><span></span></button>
+  <nav class="nav" id="main-nav">
+    <a href="#sobre-mi">Sobre mí</a><a href="#proyectos">Proyectos</a><a href="#trayectoria">Trayectoria</a>
+    <a class="pill-link" href="#contacto">¡Hablemos!</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero section-dark" aria-labelledby="hero-title">
+    <div class="hero-outline" aria-hidden="true"><span>PORTAFOLIO</span><span>PORTAFOLIO</span><span>PORTAFOLIO</span></div>
+    <h1 id="hero-title" class="hero-title">PORTAFOLIO</h1>
+    <div class="hero-photo image-placeholder">
+      <!-- Reemplaza este bloque por una imagen: <img src="{{ url_for('static', filename='img/profile/retrato.jpg') }}" alt="Retrato de Tu Nombre"> -->
+      <div class="placeholder-mark">✳</div><span>ESPACIO PARA TU<br>FOTOGRAFÍA</span>
+    </div>
+    <div class="hero-social">
+      <p>Desarrollo ideas, exploro soluciones y convierto el aprendizaje en proyectos reales.</p>
+      <a href="https://github.com/" target="_blank" rel="noreferrer">GH: /tu-usuario</a>
+      <a href="https://linkedin.com/" target="_blank" rel="noreferrer">IN: /tu-perfil</a>
+      <a href="#contacto">MAIL: hablemos</a>
+    </div>
+    <span class="spark spark-one" aria-hidden="true">✦</span><span class="spark spark-two" aria-hidden="true">✦</span>
+    <div class="hero-bottom"><p>Curiosidad, código y diseño.<br>Construyendo experiencias web con intención.</p><span>01 — 07</span></div>
+    <a class="scroll-disc" href="#sobre-mi" aria-label="Desplazarse a la sección sobre mí">Scroll<br>down <span>↓</span></a>
+  </section>
+
+  <section class="about section-cream section-pad" id="sobre-mi">
+    <div class="section-nav"><a class="brand brand-dark" href="#inicio"><span class="brand-spark">✦</span><span>Tu Nombre</span></a><span class="eyebrow">UN POCO SOBRE MÍ</span></div>
+    <div class="about-grid">
+      <div class="about-copy reveal">
+        <p class="eyebrow">HOLA, QUÉ BUENO TENERTE AQUÍ</p>
+        <h2>Hola,<br>soy <em>desarrolladora.</em></h2>
+        <p class="body-copy">Me interesa crear soluciones digitales útiles, cuidadas y fáciles de usar. Disfruto aprender cómo se conectan el diseño, la lógica y los datos para transformar una idea en una experiencia web.</p>
+        <p class="body-copy">Actualmente sigo ampliando mis habilidades y construyendo proyectos que reflejan mi proceso como desarrolladora.</p>
+        <a class="text-link" href="https://www.linkedin.com/" target="_blank" rel="noreferrer"><span>↗</span> linkedin.com/in/tu-perfil</a>
+      </div>
+      <div class="about-visual reveal">
+        <div class="about-green-block"></div>
+        <div class="about-photo image-placeholder"><div class="placeholder-mark">✳</div><span>ESPACIO PARA<br>RETRATO</span></div>
+        <div class="date-sticker">En constante<br>aprendizaje ✳</div>
+        <div class="contact-card"><h3>Contacto</h3><p>⌖ Chile</p><p>✉ tu-correo@ejemplo.com</p><p>↗ GitHub · LinkedIn</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="journey section-dark section-pad" id="trayectoria">
+    <div class="journey-outline" aria-hidden="true">RESUME<br>RESUME<br>RESUME</div>
+    <div class="journey-grid">
+      <div class="timeline-column reveal">
+        <p class="eyebrow eyebrow-yellow">EL CAMINO HASTA AQUÍ</p><h2 class="section-title">Formación</h2>
+        <div class="timeline-item"><span class="timeline-star">✦</span><span class="year">2026</span><div><h3>Skillnest</h3><p>Formación en desarrollo web y construcción de proyectos.</p></div></div>
+        <div class="timeline-item"><span class="timeline-star">✦</span><span class="year">2025—26</span><div><h3>Aprendizaje práctico</h3><p>HTML, CSS, JavaScript, Git, GitHub y desarrollo de aplicaciones.</p></div></div>
+        <div class="timeline-item"><span class="timeline-star">✦</span><span class="year">En curso</span><div><h3>Exploración constante</h3><p>Práctica mediante proyectos, ejercicios y nuevas ideas.</p></div></div>
+        <div class="experience-panel"><p class="eyebrow">APRENDER HACIENDO</p><h2>Proyectos que<br>se convierten en experiencia.</h2><p>Una colección de experimentos, desafíos y soluciones que muestran mi evolución.</p><div class="tag-row"><span>#Creatividad</span><span>#ResoluciónDeProblemas</span><span>#Aprendizaje</span></div></div>
+      </div>
+      <div class="skills-column reveal">
+        <p class="eyebrow eyebrow-yellow">LO QUE USO PARA CREAR</p><h2 class="section-title">Habilidades<br>técnicas</h2>
+        <div class="skill-group"><h3>Frontend</h3><div class="skill-chips"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Responsive design</span></div></div>
+        <div class="skill-group"><h3>Backend</h3><div class="skill-chips"><span>Python</span><span>Flask</span><span>Jinja2</span></div></div>
+        <div class="skill-group"><h3>Bases de datos y herramientas</h3><div class="skill-chips"><span>SQL</span><span>Git</span><span>GitHub</span></div></div>
+        <div class="skill-note"><span>✳</span><p>Mi objetivo: unir una experiencia clara para las personas con una base técnica sólida.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects section-cream section-pad" id="proyectos">
+    <div class="projects-heading reveal"><div><p class="eyebrow">UNA SELECCIÓN DE MI TRABAJO</p><h2 class="section-title">Proyectos<br><em>seleccionados.</em></h2></div><p class="body-copy">Cada proyecto es una oportunidad para probar ideas, resolver problemas y aprender algo nuevo.</p></div>
+    <div class="project-filters" role="group" aria-label="Filtrar proyectos">
+      <button class="filter-button active" data-filter="all">Todos</button><button class="filter-button" data-filter="web">Web</button><button class="filter-button" data-filter="fullstack">Full stack</button><button class="filter-button" data-filter="otros">Otros</button>
+    </div>
+    <div class="project-grid">
+      <article class="project-card project-large reveal" data-category="fullstack">
+        <div class="project-image image-placeholder project-image-tall"><span class="image-index">01 / PROYECTO</span><div class="placeholder-mark">✳</div><span>ESPACIO PARA<br>CAPTURA DEL PROYECTO</span></div>
+        <div class="project-meta"><span>01 — FULL STACK</span><span>PYTHON · FLASK · SQL</span></div><h3>Nombre del proyecto</h3><p>Describe aquí el problema que resuelve, tu aporte y lo que aprendiste durante su desarrollo.</p><div class="project-links"><a href="#" aria-label="Añadir enlace al proyecto">Ver proyecto ↗</a><a href="#" aria-label="Añadir repositorio de GitHub">GitHub ↗</a></div>
+      </article>
+      <article class="project-card reveal" data-category="web">
+        <div class="project-image image-placeholder project-image-wide"><span class="image-index">02 / PROYECTO</span><div class="placeholder-mark">✳</div><span>ESPACIO PARA<br>CAPTURA DEL PROYECTO</span></div>
+        <div class="project-meta"><span>02 — WEB</span><span>HTML · CSS · JS</span></div><h3>Nombre del proyecto</h3><p>Una breve descripción de la idea, las funcionalidades y las decisiones de diseño.</p><div class="project-links"><a href="#">Ver proyecto ↗</a><a href="#">GitHub ↗</a></div>
+      </article>
+      <article class="project-card reveal" data-category="fullstack">
+        <div class="project-image image-placeholder project-image-wide terracotta"><span class="image-index">03 / PROYECTO</span><div class="placeholder-mark">✳</div><span>ESPACIO PARA<br>CAPTURA DEL PROYECTO</span></div>
+        <div class="project-meta"><span>03 — APLICACIÓN</span><span>FLASK · JINJA · SQL</span></div><h3>Nombre del proyecto</h3><p>Cuenta qué construiste, qué tecnologías utilizaste y qué mejorarías en una próxima versión.</p><div class="project-links"><a href="#">Ver proyecto ↗</a><a href="#">GitHub ↗</a></div>
+      </article>
+    </div>
+    <p class="small-note">Los nombres, descripciones, capturas y enlaces son espacios editables. Sustitúyelos por información real antes de publicar.</p>
+  </section>
+
+  <section class="video-section section-yellow section-pad" id="proceso">
+    <div class="video-copy reveal"><p class="eyebrow">UN POCO MÁS ALLÁ DEL CÓDIGO</p><h2 class="section-title">Detrás<br>del <em>código.</em></h2><p>Un espacio para presentarme, mostrar un proyecto o compartir cómo trabajo y aprendo.</p><span class="video-caption">PLAY / MI PROCESO</span></div>
+    <div class="video-frame reveal">
+      <video controls preload="metadata" poster="{{ url_for('static', filename='img/video-poster-placeholder.svg') }}">
+        <source src="{{ url_for('static', filename='videos/presentacion.mp4') }}" type="video/mp4">
+        Tu navegador no puede reproducir este video.
+      </video>
+      <div class="video-placeholder-note">Añade tu video en <code>static/videos/presentacion.mp4</code></div>
+    </div>
+  </section>
+
+  <section class="contact section-dark section-pad" id="contacto">
+    <div class="contact-top reveal"><p class="eyebrow eyebrow-yellow">¿TIENES UNA IDEA, UNA PREGUNTA O UNA OPORTUNIDAD?</p><h2>Hagamos<br>algo <em>juntos.</em></h2><p>Estoy abierta a conversar sobre proyectos, aprendizaje y oportunidades para seguir creciendo.</p></div>
+    <div class="contact-bottom">
+      <div class="contact-links reveal"><a href="https://github.com/" target="_blank" rel="noreferrer">GitHub <span>↗</span></a><a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a><a href="mailto:tu-correo@ejemplo.com">tu-correo@ejemplo.com <span>↗</span></a></div>
+      <a class="contact-cta" href="{{ url_for('contacto') }}">Abrir formulario de contacto <span>↗</span></a>
+    </div>
+  </section>
+</main>
+<footer class="footer"><a class="brand" href="#inicio"><span class="brand-spark">✦</span><span>Tu Nombre</span></a><p>Hecho con curiosidad y código · 2026</p><a href="#inicio">Volver arriba ↑</a></footer>
+{% endblock %}

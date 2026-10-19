@@ -1,0 +1,1 @@
+Guarda aquí capturas de tus proyectos. Reemplaza los bloques de espacio reservado en templates/index.html por imágenes reales.

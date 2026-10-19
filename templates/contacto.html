@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Contacto | Tu nombre{% endblock %}
+{% block content %}
+<header class="site-header contact-page-header"><a class="brand" href="{{ url_for('index') }}"><span class="brand-spark">✦</span><span>Tu Nombre</span></a><a class="pill-link" href="{{ url_for('index') }}">Volver al portafolio ↗</a></header>
+<main class="contact-page section-dark section-pad" id="contacto">
+  <div class="contact-page-intro"><p class="eyebrow eyebrow-yellow">CONTACTO DIRECTO</p><h1>Hablemos<br><em>de ideas.</em></h1><p>Completa el formulario y me pondré en contacto contigo si el envío está habilitado.</p><a class="text-link text-link-light" href="mailto:tu-correo@ejemplo.com">O escríbeme directamente ↗</a></div>
+  <div class="form-wrap">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}{% for category, message in messages %}<div class="flash flash-{{ category }}" role="status">{{ message }}</div>{% endfor %}{% endif %}
+    {% endwith %}
+    <form method="post" class="contact-form" novalidate>
+      {{ form.hidden_tag() }}
+      <div class="form-field">{{ form.name.label }}{{ form.name(placeholder="Tu nombre", autocomplete="name") }}{% for error in form.name.errors %}<small>{{ error }}</small>{% endfor %}</div>
+      <div class="form-field">{{ form.email.label }}{{ form.email(placeholder="nombre@correo.com", autocomplete="email") }}{% for error in form.email.errors %}<small>{{ error }}</small>{% endfor %}</div>
+      <div class="form-field">{{ form.subject.label }}{{ form.subject(placeholder="¿Sobre qué te gustaría hablar?") }}{% for error in form.subject.errors %}<small>{{ error }}</small>{% endfor %}</div>
+      <div class="form-field">{{ form.message.label }}{{ form.message(placeholder="Escribe tu mensaje...", rows="5") }}{% for error in form.message.errors %}<small>{{ error }}</small>{% endfor %}</div>
+      {{ form.submit(class_="submit-button") }}
+    </form>
+  </div>
+</main>
+<footer class="footer"><a class="brand" href="{{ url_for('index') }}"><span class="brand-spark">✦</span><span>Tu Nombre</span></a><p>Hecho con curiosidad y código · 2026</p><a href="{{ url_for('index') }}">Volver al inicio ↑</a></footer>
+{% endblock %}

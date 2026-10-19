@@ -1,0 +1,1 @@
+Carpeta opcional para texturas o fondos propios.

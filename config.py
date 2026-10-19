@@ -1,0 +1,1 @@
+"""Configuración adicional opcional del portafolio."""
