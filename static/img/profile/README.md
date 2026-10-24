@@ -1,1 +1,0 @@
-Coloca aquí tu retrato principal, por ejemplo retrato.jpg. Luego actualiza los bloques provisionales en templates/index.html para utilizar una etiqueta img.

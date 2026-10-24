@@ -1,12 +1,11 @@
-# Python
-__pycache__/
-*.py[cod]
-.venv/
-venv/
-.env
-
-# Editor / sistema
-.vscode/
+# Sistema
 .DS_Store
 Thumbs.db
-*.log
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Node (por si luego agregas tooling)
+node_modules/
