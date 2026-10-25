@@ -1,6 +1,5 @@
 // ═══════════════════════════════════════════
 //  PORTAFOLIO — Annerill Anabalón
-//  script.js — completo
 // ═══════════════════════════════════════════
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -120,7 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     document.querySelectorAll("[data-expandable]").forEach((el) => {
         el.addEventListener("click", () => {
-            // Si el elemento acaba de ser arrastrado, no expandir
             if (el.dataset.wasDragged === "true") return;
             el.setAttribute("aria-expanded", String(el.getAttribute("aria-expanded") !== "true"));
         });
@@ -130,13 +128,11 @@ document.addEventListener("DOMContentLoaded", () => {
     (function initStickyDrag() {
         const sticky = document.querySelector(".sticky-note");
         if (!sticky) return;
-
-        const STORAGE_KEY = "sticky-note-pos";
+        const STORAGE_KEY = "sticky-note-pos-v2";
         let currentX = 0;
         let currentY = 0;
         let drag = null;
 
-        // Restaurar posición guardada
         try {
             const saved = localStorage.getItem(STORAGE_KEY);
             if (saved) {
@@ -153,7 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
         sticky.addEventListener("pointerdown", (e) => {
             if (e.button !== undefined && e.button !== 0) return;
             delete sticky.dataset.wasDragged;
-
             drag = {
                 pointerId: e.pointerId,
                 startX: e.clientX,
@@ -162,24 +157,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 baseY: currentY,
                 moved: false
             };
-
             try { sticky.setPointerCapture(e.pointerId); } catch (_) { }
         });
 
         sticky.addEventListener("pointermove", (e) => {
             if (!drag || e.pointerId !== drag.pointerId) return;
-
             const dx = e.clientX - drag.startX;
             const dy = e.clientY - drag.startY;
-
             if (!drag.moved && Math.hypot(dx, dy) > 6) {
                 drag.moved = true;
                 sticky.classList.add("is-dragging");
             }
-
             if (!drag.moved) return;
             e.preventDefault();
-
             currentX = drag.baseX + dx;
             currentY = drag.baseY + dy;
             sticky.style.setProperty("--sticky-x", currentX + "px");
@@ -189,17 +179,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const endDrag = (e) => {
             if (!drag || e.pointerId !== drag.pointerId) return;
             try { sticky.releasePointerCapture(e.pointerId); } catch (_) { }
-
             if (drag.moved) {
                 sticky.dataset.wasDragged = "true";
                 try {
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-                        x: currentX,
-                        y: currentY
-                    }));
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify({ x: currentX, y: currentY }));
                 } catch (_) { }
             }
-
             sticky.classList.remove("is-dragging");
             drag = null;
         };
@@ -207,7 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
         sticky.addEventListener("pointerup", endDrag);
         sticky.addEventListener("pointercancel", endDrag);
 
-        // Función global de reset — la usa el botón ⟲ de la bandeja
         window.__resetStickyNote = () => {
             currentX = 0;
             currentY = 0;
@@ -224,6 +208,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let detailOpen = false;
 
     function openDetail(card) {
+        if (!card) return;
+        if (card.dataset.wasDragged === "true") return;
         previousFocus = document.activeElement;
         const media = card.querySelector(".project-media");
         const title = card.querySelector("h3")?.textContent.trim() || "";
@@ -287,7 +273,11 @@ document.addEventListener("DOMContentLoaded", () => {
         previousFocus?.focus?.();
         previousFocus = null;
     }
-    document.querySelectorAll(".project-media").forEach(m => m.addEventListener("click", () => openDetail(m.closest(".project-card"))));
+    document.querySelectorAll(".project-media").forEach(m => m.addEventListener("click", () => {
+        const card = m.closest(".project-card");
+        if (card?.dataset.wasDragged === "true") return;
+        openDetail(card);
+    }));
     document.querySelectorAll("[data-close-detail]").forEach(el => el.addEventListener("click", closeDetail));
     document.addEventListener("keydown", (e) => {
         if (!detailOpen) return;
@@ -371,7 +361,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const originals = new Map();
         const returnTimers = new Map();
         const DIST = 140;
-        const HINT_KEY = "stars-hint-v5";
+        const HINT_KEY = "stars-hint-v6";
         let hintTimer = null;
 
         const constellation = { selected: null, edges: new Set(), uids: new Set() };
@@ -710,13 +700,15 @@ document.addEventListener("DOMContentLoaded", () => {
     })();
 
     /* ═══════════════════════════════════════════
-       13. VOCABULARIO, BANDEJA Y EFECTOS
+       13. VOCABULARIO Y EFECTOS
+       ✅ Solo gato, zorro, cuervo, mapache (siluetas)
+       ✅ Pastel, agujero, anubis, binario, trueno con efectos propios
        ═══════════════════════════════════════════ */
     const VOCABULARY = {
         NUBE: { category: "naturaleza", label: "Nube", hint: "Algo que flota y a veces tapa el sol.", effect: "nube" },
         LLUVIA: { category: "naturaleza", label: "Lluvia", hint: "Cae del cielo cuando las nubes se cansan.", effect: "lluvia" },
         TORMENTA: { category: "naturaleza", label: "Tormenta", hint: "Lluvia con enojo y viento.", effect: "lluvia" },
-        TRUENO: { category: "naturaleza", label: "Trueno", hint: "El sonido que acompaña al rayo.", effect: "tornado" },
+        TRUENO: { category: "naturaleza", label: "Trueno", hint: "El sonido que acompaña al rayo.", effect: "trueno" },
         TORNADO: { category: "naturaleza", label: "Tornado", hint: "Gira y se lleva todo a su paso.", effect: "tornado" },
         VIENTO: { category: "naturaleza", label: "Viento", hint: "No se ve pero mueve las hojas.", effect: "viento" },
         BOSQUE: { category: "naturaleza", label: "Bosque", hint: "Muchos árboles juntos, verde por todos lados.", effect: "nube" },
@@ -738,7 +730,7 @@ document.addEventListener("DOMContentLoaded", () => {
         CONSTELACION: { category: "universo", label: "Constelación", hint: "Estrellas conectadas formando figuras.", effect: "estrellas" },
         INFINITO: { category: "universo", label: "Infinito", hint: "No tiene fin.", effect: "estrellas" },
         HIPERESPACIO: { category: "universo", label: "Hiperespacio", hint: "Viajar más rápido que la luz.", effect: "estrellas" },
-        AGUJERO: { category: "universo", label: "Agujero negro", hint: "Absorbe todo, incluso la luz.", effect: "estrellas" },
+        AGUJERO: { category: "universo", label: "Agujero negro", hint: "Absorbe todo, incluso la luz.", effect: "agujero" },
 
         CODIGO: { category: "tecnologia", label: "Código", hint: "Lo que escribís para hablarle a la máquina.", effect: "codigo" },
         PIXEL: { category: "tecnologia", label: "Píxel", hint: "El punto más pequeño de una imagen.", effect: "codigo" },
@@ -752,16 +744,14 @@ document.addEventListener("DOMContentLoaded", () => {
         CSS: { category: "tecnologia", label: "CSS", hint: "Lo que viste a HTML de colores.", effect: "codigo" },
         INTERNET: { category: "tecnologia", label: "Internet", hint: "Conecta computadoras de todo el mundo.", effect: "codigo" },
         ALGORITMO: { category: "tecnologia", label: "Algoritmo", hint: "Una receta paso a paso para resolver algo.", effect: "codigo" },
-        BINARIO: { category: "tecnologia", label: "Binario", hint: "Solo ceros y unos.", effect: "codigo" },
+        BINARIO: { category: "tecnologia", label: "Binario", hint: "Solo ceros y unos.", effect: "binario" },
 
+        /* ✅ Solo los 4 animales con silueta */
         GATO: { category: "animales", label: "Gato", hint: "Duerme mucho y hace miau.", effect: "gato" },
         GATOS: { category: "animales", label: "Gatos", hint: "Más de uno del anterior.", effect: "gato" },
-        ZORRO: { category: "animales", label: "Zorro", hint: "Astuto, naranja y con cola larga.", effect: "gato" },
-        CUERVO: { category: "animales", label: "Cuervo", hint: "Negro, inteligente, observa todo.", effect: "gato" },
-        MAPACHE: { category: "animales", label: "Mapache", hint: "Travieso y con antifaz natural.", effect: "gato" },
-        BUHO: { category: "animales", label: "Búho", hint: "Ave nocturna que ve en la oscuridad.", effect: "gato" },
-        MARIPOSA: { category: "animales", label: "Mariposa", hint: "Nació oruga y tiene alas de colores.", effect: "gato" },
-        DRAGON: { category: "animales", label: "Dragón", hint: "Animal mitológico que escupe fuego.", effect: "gato" },
+        ZORRO: { category: "animales", label: "Zorro", hint: "Astuto, naranja y con cola larga.", effect: "zorro" },
+        CUERVO: { category: "animales", label: "Cuervo", hint: "Negro, inteligente, observa todo.", effect: "cuervo" },
+        MAPACHE: { category: "animales", label: "Mapache", hint: "Travieso y con antifaz natural.", effect: "mapache" },
 
         ARTE: { category: "magia", label: "Arte", hint: "Expresión que no se mide en fórmulas.", effect: "caos" },
         MAGIA: { category: "magia", label: "Magia", hint: "Lo que parece imposible pero sucede.", effect: "caos" },
@@ -784,7 +774,7 @@ document.addEventListener("DOMContentLoaded", () => {
         GRAVEDAD: { category: "especial", label: "Gravedad", hint: "Lo que hace caer las cosas al piso.", effect: "gravedad" },
         PASTEL: { category: "especial", label: "Pastel", hint: "Un color suave, rosado y dulce.", effect: "pastel" },
         ESPEJO: { category: "especial", label: "Espejo", hint: "Refleja lo que tenés enfrente.", effect: "caos" },
-        ANUBIS: { category: "especial", label: "Anubis", hint: "El nombre de alguien muy especial.", effect: "caos" }
+        ANUBIS: { category: "especial", label: "Anubis", hint: "El nombre de alguien muy especial.", effect: "anubis" }
     };
 
     const normalize = (s) =>
@@ -854,6 +844,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function addChip(letter, originEl) {
+        if (originEl) {
+            const dup = Array.from(trayInner.children).find(c => c._originEl === originEl);
+            if (dup) return dup;
+        }
         const chip = document.createElement("button");
         chip.type = "button";
         chip.className = "chip";
@@ -1100,12 +1094,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ═══════════════════════════════════════════
        14.A — LETRAS EN EL TEXTO
+       ✅ No se oculta la letra original; solo se bloquea el segundo clic
        ═══════════════════════════════════════════ */
     const floatLetters = document.querySelectorAll(".float-letter:not(.float-letter--deco)");
     floatLetters.forEach((el) => {
         const collect = () => {
             if (el.classList.contains("is-taken")) return;
             const letter = el.dataset.letter;
+            if (!letter) return;
+
             const rect = el.getBoundingClientRect();
             const fly = document.createElement("div");
             fly.className = "float-letter-fly";
@@ -1300,7 +1297,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         if (starAPI) starAPI.clearConstellation();
 
-        // ✅ Reset del sticky note
         window.__resetStickyNote?.();
 
         spawnCount = 0;
