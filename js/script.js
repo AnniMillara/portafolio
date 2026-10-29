@@ -1,12 +1,9 @@
-// ═══════════════════════════════════════════
-//  PORTAFOLIO — Annerill Anabalón
-// ═══════════════════════════════════════════
 document.addEventListener("DOMContentLoaded", () => {
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const hoverCapable = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-    /* ─── 1. Tema ─── */
+    /* 1. Tema */
     const root = document.documentElement;
     const themeToggle = document.querySelector(".theme-toggle");
     const savedTheme = localStorage.getItem("theme");
@@ -18,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("theme", next);
     });
 
-    /* ─── 2. Menú ─── */
+    /* 2. Menú */
     const menuToggle = document.querySelector(".menu-toggle");
     const nav = document.getElementById("main-nav");
     if (menuToggle && nav) {
@@ -35,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* ─── 3. Filtros ─── */
+    /* 3. Filtros */
     const filters = document.querySelectorAll(".filter");
     const projects = document.querySelectorAll(".project-card");
     filters.forEach((btn) => {
@@ -53,15 +50,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    /* ─── 4. Skill → proyecto ─── */
+    /* 4. Skill → proyecto */
     const relatedMap = {
-        "HTML": ["querido-diario", "cinepedia"],
-        "CSS": ["querido-diario", "cinepedia", "apps-bd"],
-        "JavaScript": ["querido-diario", "cinepedia"],
-        "Python": ["politicore", "apps-bd"],
-        "Flask": ["politicore"],
-        "Jinja2": ["politicore"],
-        "SQL": ["politicore", "apps-bd"],
+        "HTML": ["querido-diario", "cinepedia", "nido"],
+        "CSS": ["querido-diario", "cinepedia", "apps-bd", "nido"],
+        "JavaScript": ["querido-diario", "cinepedia", "nido"],
+        "Python": ["nido", "politicore", "apps-bd"],
+        "Flask": ["nido", "politicore"],
+        "Jinja2": ["nido", "politicore", "cinepedia"],
+        "SQL / MySQL": ["nido", "politicore", "apps-bd", "cinepedia"],
         "Redes LAN": ["laboratorio"],
         "Soporte técnico": ["laboratorio"]
     };
@@ -75,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const skill = e.currentTarget.closest(".skill-card");
         if (skill) skill.open = false;
         setTimeout(() => {
-            const y = projectCard.getBoundingClientRect().top + window.scrollY - 120;
+            const y = Math.max(0, projectCard.getBoundingClientRect().top + window.scrollY - 120);
             window.scrollTo({ top: y, behavior: reducedMotion ? "auto" : "smooth" });
             projectCard.classList.add("is-highlighted");
             setTimeout(() => projectCard.classList.remove("is-highlighted"), 2200);
@@ -89,6 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const related = relatedMap[name] || [];
                 let relatedEl = card.querySelector(".skill-related");
                 if (!relatedEl && related.length) {
+                    const body = card.querySelector(".skill-body");
+                    if (!body) return;
                     relatedEl = document.createElement("div");
                     relatedEl.className = "skill-related";
                     const label = document.createElement("span");
@@ -105,18 +104,28 @@ document.addEventListener("DOMContentLoaded", () => {
                         a.addEventListener("click", handleRelatedClick);
                         relatedEl.appendChild(a);
                     });
-                    card.querySelector(".skill-body").appendChild(relatedEl);
+                    body.appendChild(relatedEl);
                 }
             }
         });
     });
 
-    /* ─── 5. Frames y expandibles ─── */
-    document.querySelectorAll(".frame").forEach((frame) => {
-        frame.addEventListener("click", () => {
-            frame.setAttribute("aria-pressed", String(frame.getAttribute("aria-pressed") !== "true"));
+    /* 5. Frame flip */
+    document.querySelectorAll(".frame-flip-trigger").forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+            const frame = trigger.closest(".frame");
+            if (!frame) return;
+            const next = frame.dataset.flipped !== "true";
+            frame.dataset.flipped = String(next);
+            trigger.setAttribute("aria-pressed", String(next));
+            frame.querySelectorAll(".letter--hidden").forEach((el) => {
+                if (next) el.removeAttribute("inert");
+                else if (!el.classList.contains("is-taken")) el.setAttribute("inert", "");
+            });
         });
     });
+
+    /* 5.b Expandibles */
     document.querySelectorAll("[data-expandable]").forEach((el) => {
         el.addEventListener("click", () => {
             if (el.dataset.wasDragged === "true") return;
@@ -124,84 +133,60 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    /* ─── 5.b STICKY NOTE ARRASTRABLE ─── */
+    /* 5.c Sticky note */
     (function initStickyDrag() {
         const sticky = document.querySelector(".sticky-note");
         if (!sticky) return;
-        const STORAGE_KEY = "sticky-note-pos-v2";
-        let currentX = 0;
-        let currentY = 0;
-        let drag = null;
-
+        const STORAGE_KEY = "sticky-note-pos-v3";
+        let currentX = 0, currentY = 0, drag = null;
         try {
             const saved = localStorage.getItem(STORAGE_KEY);
             if (saved) {
                 const pos = JSON.parse(saved);
                 if (typeof pos.x === "number" && typeof pos.y === "number") {
-                    currentX = pos.x;
-                    currentY = pos.y;
+                    currentX = pos.x; currentY = pos.y;
                     sticky.style.setProperty("--sticky-x", currentX + "px");
                     sticky.style.setProperty("--sticky-y", currentY + "px");
                 }
             }
         } catch (_) { }
-
         sticky.addEventListener("pointerdown", (e) => {
             if (e.button !== undefined && e.button !== 0) return;
             delete sticky.dataset.wasDragged;
-            drag = {
-                pointerId: e.pointerId,
-                startX: e.clientX,
-                startY: e.clientY,
-                baseX: currentX,
-                baseY: currentY,
-                moved: false
-            };
+            drag = { pointerId: e.pointerId, startX: e.clientX, startY: e.clientY, baseX: currentX, baseY: currentY, moved: false };
             try { sticky.setPointerCapture(e.pointerId); } catch (_) { }
         });
-
         sticky.addEventListener("pointermove", (e) => {
             if (!drag || e.pointerId !== drag.pointerId) return;
-            const dx = e.clientX - drag.startX;
-            const dy = e.clientY - drag.startY;
-            if (!drag.moved && Math.hypot(dx, dy) > 6) {
-                drag.moved = true;
-                sticky.classList.add("is-dragging");
-            }
+            const dx = e.clientX - drag.startX, dy = e.clientY - drag.startY;
+            if (!drag.moved && Math.hypot(dx, dy) > 6) { drag.moved = true; sticky.classList.add("is-dragging"); }
             if (!drag.moved) return;
             e.preventDefault();
-            currentX = drag.baseX + dx;
-            currentY = drag.baseY + dy;
+            currentX = drag.baseX + dx; currentY = drag.baseY + dy;
             sticky.style.setProperty("--sticky-x", currentX + "px");
             sticky.style.setProperty("--sticky-y", currentY + "px");
         });
-
         const endDrag = (e) => {
             if (!drag || e.pointerId !== drag.pointerId) return;
             try { sticky.releasePointerCapture(e.pointerId); } catch (_) { }
             if (drag.moved) {
                 sticky.dataset.wasDragged = "true";
-                try {
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify({ x: currentX, y: currentY }));
-                } catch (_) { }
+                try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ x: currentX, y: currentY })); } catch (_) { }
             }
             sticky.classList.remove("is-dragging");
             drag = null;
         };
-
         sticky.addEventListener("pointerup", endDrag);
         sticky.addEventListener("pointercancel", endDrag);
-
         window.__resetStickyNote = () => {
-            currentX = 0;
-            currentY = 0;
+            currentX = 0; currentY = 0;
             sticky.style.setProperty("--sticky-x", "0px");
             sticky.style.setProperty("--sticky-y", "0px");
             try { localStorage.removeItem(STORAGE_KEY); } catch (_) { }
         };
     })();
 
-    /* ─── 6. Detalle de proyecto ─── */
+    /* 6. Detalle de proyecto */
     const detail = document.getElementById("detail");
     const detailContent = document.getElementById("detail-content");
     let previousFocus = null;
@@ -214,8 +199,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const media = card.querySelector(".project-media");
         const title = card.querySelector("h3")?.textContent.trim() || "";
         const type = card.querySelector(".project-type")?.textContent.trim() || "";
-        const desc = card.querySelector(".project-desc")?.textContent.trim() || "";
-        const tech = Array.from(card.querySelectorAll(".project-tech li")).map(li => li.textContent.trim());
+        const shortDesc = card.querySelector(".project-desc")?.textContent.trim() || "";
+        const desc = card.dataset.modalDesc || shortDesc;
+        const features = (card.dataset.modalFeatures || "").split("|").map(s => s.trim()).filter(Boolean);
+        const tech = Array.from(card.querySelectorAll(".project-tech li")).map(li => li.textContent.trim()).filter(t => t && t !== "—");
         const links = Array.from(card.querySelectorAll(".project-links a")).map(a => ({
             href: a.getAttribute("href"), text: a.textContent.trim(),
             external: a.getAttribute("target") === "_blank"
@@ -233,11 +220,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         const info = document.createElement("div");
         info.className = "detail-info";
-        info.innerHTML = `
-            <p class="detail-type">${type}</p>
-            <h2 class="detail-title" id="detail-title">${title}</h2>
-            <p class="detail-desc">${desc}</p>
-        `;
+        info.innerHTML = `<p class="detail-type">${type}</p><h2 class="detail-title" id="detail-title">${title}</h2><p class="detail-desc">${desc}</p>`;
+        if (features.length) {
+            const ul = document.createElement("ul");
+            ul.className = "detail-features";
+            features.forEach(f => { const li = document.createElement("li"); li.textContent = f; ul.appendChild(li); });
+            info.appendChild(ul);
+        }
         if (tech.length) {
             const ul = document.createElement("ul");
             ul.className = "detail-tech";
@@ -291,7 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    /* ─── 7. Reveal ─── */
+    /* 7. Reveal */
     const revealItems = document.querySelectorAll("[data-reveal]");
     if ("IntersectionObserver" in window && !reducedMotion) {
         const obs = new IntersectionObserver((entries, o) => {
@@ -302,7 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
         revealItems.forEach(el => el.classList.add("is-visible"));
     }
 
-    /* ─── 8. Tilt ─── */
+    /* 8. Tilt */
     if (hoverCapable && !reducedMotion) {
         document.querySelectorAll(".project-card").forEach(card => {
             const media = card.querySelector(".project-media");
@@ -326,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* ─── 9. Video ─── */
+    /* 9. Video */
     const video = document.querySelector(".video-el");
     const videoPlaceholder = document.querySelector(".video-placeholder");
     if (video && videoPlaceholder) {
@@ -335,17 +324,31 @@ document.addEventListener("DOMContentLoaded", () => {
         if (video.readyState >= 2) { video.classList.add("is-loaded"); videoPlaceholder.hidden = true; }
     }
 
-    /* ─── 10. Año ─── */
+    /* 10. Imágenes fallback */
+    function initImageFallback(selector) {
+        document.querySelectorAll(selector).forEach(img => {
+            const mark = () => img.classList.add("is-loaded");
+            const fail = () => { img.remove(); };
+            img.addEventListener("load", mark);
+            img.addEventListener("error", fail);
+            if (img.complete) {
+                if (img.naturalWidth > 0) mark();
+                else fail();
+            }
+        });
+    }
+    initImageFallback(".project-img");
+    initImageFallback(".hero-photo-img");
+
+    /* 11. Año */
     document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
 
-    /* ─── 11. Cerrar menú en desktop ─── */
+    /* 12. Cerrar menú en desktop */
     window.matchMedia("(min-width: 801px)").addEventListener("change", (e) => {
         if (e.matches && nav) { nav.classList.remove("is-open"); menuToggle?.setAttribute("aria-expanded", "false"); }
     });
 
-    /* ═══════════════════════════════════════════
-       12. ESTRELLAS
-       ═══════════════════════════════════════════ */
+    /* 13. Estrellas */
     const starAPI = (function initStars() {
         const field = document.querySelector(".stars-field");
         if (!field) return null;
@@ -370,7 +373,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         stars.forEach((st, i) => { if (!st.dataset.uid) st.dataset.uid = "star-" + i; });
 
-        const dismiss = () => { if (!hint || hint.hidden) return; hint.hidden = true; localStorage.setItem(HINT_KEY, "1"); clearTimeout(hintTimer); };
+        const dismiss = () => { if (!hint || hint.hidden) return; hint.hidden = true; try { localStorage.setItem(HINT_KEY, "1"); } catch (_) { } clearTimeout(hintTimer); };
         const size = () => stars[0].offsetWidth || 44;
         const clampPos = (x, y) => {
             const r = field.getBoundingClientRect();
@@ -402,7 +405,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         }
-
         function updateConstellationLines() {
             if (!constellationSvg) return;
             while (constellationSvg.firstChild) constellationSvg.removeChild(constellationSvg.firstChild);
@@ -424,40 +426,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 constellationSvg.appendChild(line);
             });
         }
-
         function refreshConstellationUI() {
-            if (checkBtn) checkBtn.hidden = constellation.edges.size < 2;
+            if (checkBtn) checkBtn.hidden = constellation.edges.size < 1;
             if (clearBtn) clearBtn.hidden = constellation.edges.size === 0;
             stars.forEach(st => st.classList.toggle("is-in-constellation", constellation.uids.has(st.dataset.uid)));
         }
-
         function clearConstellation() {
             constellation.edges.clear();
             constellation.uids.clear();
-            if (constellation.selected) {
-                constellation.selected.classList.remove("is-constellation-selected");
-                constellation.selected = null;
-            }
+            if (constellation.selected) { constellation.selected.classList.remove("is-constellation-selected"); constellation.selected = null; }
             updateConstellationLines();
             refreshConstellationUI();
         }
-
         function selectStar(star) {
-            if (constellation.selected === star) {
-                star.classList.remove("is-constellation-selected");
-                constellation.selected = null;
-                return;
-            }
+            if (constellation.selected === star) { star.classList.remove("is-constellation-selected"); constellation.selected = null; return; }
             if (constellation.selected) {
                 const a = constellation.selected, b = star;
                 const uidA = a.dataset.uid, uidB = b.dataset.uid;
                 if (uidA !== uidB) {
                     const key = [uidA, uidB].sort().join("|");
-                    if (!constellation.edges.has(key)) {
-                        constellation.edges.add(key);
-                        constellation.uids.add(uidA);
-                        constellation.uids.add(uidB);
-                    }
+                    if (!constellation.edges.has(key)) { constellation.edges.add(key); constellation.uids.add(uidA); constellation.uids.add(uidB); }
                 }
                 a.classList.remove("is-constellation-selected");
                 constellation.selected = null;
@@ -468,7 +456,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 star.classList.add("is-constellation-selected");
             }
         }
-
         function isConnected(star) {
             const my = positions.get(star);
             if (!my) return false;
@@ -480,7 +467,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             return false;
         }
-
         function scheduleReturn(star) {
             clearTimeout(returnTimers.get(star));
             returnTimers.set(star, setTimeout(() => {
@@ -495,7 +481,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateConstellationLines();
             }, 10000));
         }
-
         function initPositions() {
             const r = field.getBoundingClientRect();
             const s = size();
@@ -510,7 +495,6 @@ document.addEventListener("DOMContentLoaded", () => {
             field.classList.add("is-ready");
             updateProximityLines();
         }
-
         function resetPositions() {
             returnTimers.forEach(t => clearTimeout(t));
             returnTimers.clear();
@@ -527,17 +511,10 @@ document.addEventListener("DOMContentLoaded", () => {
         stars.forEach(star => {
             let drag = null, rafId = null, pending = null;
             let pointerDown = null;
-
             const apply = () => {
-                if (pending) {
-                    setPos(star, pending.x, pending.y);
-                    updateProximityLines();
-                    updateConstellationLines();
-                    pending = null;
-                }
+                if (pending) { setPos(star, pending.x, pending.y); updateProximityLines(); updateConstellationLines(); pending = null; }
                 rafId = null;
             };
-
             star.addEventListener("pointerdown", e => {
                 if (e.button !== undefined && e.button !== 0) return;
                 e.preventDefault();
@@ -550,7 +527,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 clearTimeout(returnTimers.get(star));
                 dismiss();
             });
-
             star.addEventListener("pointermove", e => {
                 if (pointerDown && e.pointerId === pointerDown.id) {
                     const d = Math.hypot(e.clientX - pointerDown.startX, e.clientY - pointerDown.startY);
@@ -563,48 +539,36 @@ document.addEventListener("DOMContentLoaded", () => {
                 pending = c;
                 if (rafId === null) rafId = requestAnimationFrame(apply);
             });
-
             const end = (e) => {
                 if (!drag || e.pointerId !== drag.id) return;
                 const pd = pointerDown;
-                drag = null;
-                pointerDown = null;
+                drag = null; pointerDown = null;
                 star.classList.remove("is-dragging");
                 try { star.releasePointerCapture(e.pointerId); } catch (_) { }
                 updateProximityLines();
                 updateConstellationLines();
                 scheduleReturn(star);
-
                 if (!pd) return;
                 const isClick = pd.moved < 8 && (Date.now() - pd.startTime) < 500;
-
                 if (star.dataset.starLetter && star.classList.contains("is-revealed")) {
                     if (isClick) {
-                        if (typeof window.__portfolioAddChip === "function") {
-                            window.__portfolioAddChip(star.dataset.starLetter, null);
-                            window.__portfolioCheckWord?.();
-                            star.classList.add("is-collected");
-                            star.classList.remove("is-revealed");
-                            window.__portfolioShowToast?.(`letra ${star.dataset.starLetter} recogida`);
-                        }
+                        window.__portfolioAddChip?.(star.dataset.starLetter, null);
+                        star.classList.add("is-collected");
+                        star.classList.remove("is-revealed");
+                        window.__portfolioShowToast?.(`letra ${star.dataset.starLetter} recogida`);
                         return;
                     }
                 }
-
                 if (star.dataset.starLetter && pd.moved > 30 && !star.classList.contains("is-revealed") && !star.classList.contains("is-collected")) {
                     star.classList.add("is-revealed");
-                    const timer = setTimeout(() => {
-                        if (!star.classList.contains("is-collected")) star.classList.remove("is-revealed");
-                    }, 8000);
+                    const timer = setTimeout(() => { if (!star.classList.contains("is-collected")) star.classList.remove("is-revealed"); }, 8000);
                     star._revealTimer = timer;
                     return;
                 }
-
                 if (isClick) selectStar(star);
             };
             star.addEventListener("pointerup", end);
             star.addEventListener("pointercancel", end);
-
             star.addEventListener("keydown", e => {
                 const step = e.shiftKey ? 20 : 5;
                 const p = positions.get(star);
@@ -624,21 +588,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     dismiss();
                     return;
                 }
-                if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    selectStar(star);
-                }
+                if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectStar(star); }
             });
         });
 
         checkBtn?.addEventListener("click", () => {
-            if (constellation.edges.size < 2) return;
+            if (constellation.edges.size < 1) return;
             const letter = matchConstellationLetter(stars, positions, size, constellation.uids);
             if (letter) {
-                if (typeof window.__portfolioAddChip === "function") {
-                    window.__portfolioAddChip(letter, null);
-                    window.__portfolioCheckWord?.();
-                }
+                window.__portfolioAddChip?.(letter, null);
                 stars.forEach(st => {
                     if (constellation.uids.has(st.dataset.uid)) {
                         st.classList.add("constellation-success");
@@ -655,126 +613,97 @@ document.addEventListener("DOMContentLoaded", () => {
             clearConstellation();
             window.__portfolioShowToast?.("conexiones borradas");
         });
-
         document.addEventListener("click", (e) => {
             if (!e.target.closest(".star")) {
-                if (constellation.selected) {
-                    constellation.selected.classList.remove("is-constellation-selected");
-                    constellation.selected = null;
-                }
+                if (constellation.selected) { constellation.selected.classList.remove("is-constellation-selected"); constellation.selected = null; }
             }
         });
         document.addEventListener("keydown", (e) => {
             if (e.key === "Escape" && (constellation.selected || constellation.edges.size)) clearConstellation();
         });
-
         resetBtn?.addEventListener("click", resetPositions);
-
         if (hint) {
-            if (!localStorage.getItem(HINT_KEY)) { hint.hidden = false; hintTimer = setTimeout(dismiss, 12000); }
+            let stored = null;
+            try { stored = localStorage.getItem(HINT_KEY); } catch (_) { }
+            if (!stored) { hint.hidden = false; hintTimer = setTimeout(dismiss, 12000); }
             else hint.hidden = true;
             hintClose?.addEventListener("click", dismiss);
         }
-
         const boot = () => requestAnimationFrame(initPositions);
         if (document.readyState === "complete") boot();
         else window.addEventListener("load", boot);
-
         let rt = null;
         window.addEventListener("resize", () => {
             clearTimeout(rt);
             rt = setTimeout(() => {
                 stars.forEach(st => {
                     const p = positions.get(st);
+                    const o = originals.get(st);
                     if (!p) return;
                     const c = clampPos(p.x, p.y);
+                    const co = o ? clampPos(o.x, o.y) : c;
                     positions.set(st, c);
+                    originals.set(st, co);
                     setPos(st, c.x, c.y);
                 });
                 updateProximityLines();
                 updateConstellationLines();
             }, 150);
         });
-
         return { positions, size, stars, clearConstellation };
     })();
 
-    /* ═══════════════════════════════════════════
-       13. VOCABULARIO Y EFECTOS
-       ✅ Solo gato, zorro, cuervo, mapache (siluetas)
-       ✅ Pastel, agujero, anubis, binario, trueno con efectos propios
-       ═══════════════════════════════════════════ */
+    /* 14. Vocabulario */
     const VOCABULARY = {
-        NUBE: { category: "naturaleza", label: "Nube", hint: "Algo que flota y a veces tapa el sol.", effect: "nube" },
+        CIELO: { category: "naturaleza", label: "Cielo", hint: "Lo que ves cuando mirás arriba.", effect: "cielo" },
+        NUBE: { category: "naturaleza", label: "Nube", hint: "Algo que flota y a veces tapa el sol.", effect: "cielo" },
+        BOSQUE: { category: "naturaleza", label: "Bosque", hint: "Muchos árboles juntos, verde por todos lados.", effect: "cielo" },
+        FLOR: { category: "naturaleza", label: "Flor", hint: "Nace, crece y decora.", effect: "cielo" },
+
         LLUVIA: { category: "naturaleza", label: "Lluvia", hint: "Cae del cielo cuando las nubes se cansan.", effect: "lluvia" },
         TORMENTA: { category: "naturaleza", label: "Tormenta", hint: "Lluvia con enojo y viento.", effect: "lluvia" },
-        TRUENO: { category: "naturaleza", label: "Trueno", hint: "El sonido que acompaña al rayo.", effect: "trueno" },
-        TORNADO: { category: "naturaleza", label: "Tornado", hint: "Gira y se lleva todo a su paso.", effect: "tornado" },
-        VIENTO: { category: "naturaleza", label: "Viento", hint: "No se ve pero mueve las hojas.", effect: "viento" },
-        BOSQUE: { category: "naturaleza", label: "Bosque", hint: "Muchos árboles juntos, verde por todos lados.", effect: "nube" },
-        FLOR: { category: "naturaleza", label: "Flor", hint: "Nace, crece y decora.", effect: "nube" },
-        OCEANO: { category: "naturaleza", label: "Océano", hint: "Inmenso, azul y salado.", effect: "lluvia" },
-        ARCOIRIS: { category: "naturaleza", label: "Arcoíris", hint: "Aparece cuando la lluvia se va.", effect: "lluvia" },
         MAR: { category: "naturaleza", label: "Mar", hint: "El azul que rodea todo.", effect: "lluvia" },
-        CIELO: { category: "naturaleza", label: "Cielo", hint: "Lo que ves cuando mirás arriba.", effect: "nube" },
-        PIEDRA: { category: "naturaleza", label: "Piedra", hint: "Pesa y cae.", effect: "gravedad" },
+        OCEANO: { category: "naturaleza", label: "Océano", hint: "Inmenso, azul y salado.", effect: "lluvia" },
 
-        LUNA: { category: "universo", label: "Luna", hint: "Nos alumbra de noche.", effect: "estrellas" },
-        SOL: { category: "universo", label: "Sol", hint: "La estrella más cercana.", effect: "estrellas" },
-        ESTRELLA: { category: "universo", label: "Estrella", hint: "Un punto brillante en la noche.", effect: "estrellas" },
-        GALAXIA: { category: "universo", label: "Galaxia", hint: "Una ciudad de estrellas.", effect: "estrellas" },
-        COMETA: { category: "universo", label: "Cometa", hint: "Una estrella con cola que viaja.", effect: "estrellas" },
-        PLANETA: { category: "universo", label: "Planeta", hint: "Gira alrededor de una estrella.", effect: "estrellas" },
-        ECLIPSE: { category: "universo", label: "Eclipse", hint: "Un astro tapa a otro.", effect: "estrellas" },
-        NEBULOSA: { category: "universo", label: "Nebulosa", hint: "Una nube de gas y polvo en el espacio.", effect: "estrellas" },
-        CONSTELACION: { category: "universo", label: "Constelación", hint: "Estrellas conectadas formando figuras.", effect: "estrellas" },
-        INFINITO: { category: "universo", label: "Infinito", hint: "No tiene fin.", effect: "estrellas" },
-        HIPERESPACIO: { category: "universo", label: "Hiperespacio", hint: "Viajar más rápido que la luz.", effect: "estrellas" },
-        AGUJERO: { category: "universo", label: "Agujero negro", hint: "Absorbe todo, incluso la luz.", effect: "agujero" },
+        TORNADO: { category: "naturaleza", label: "Tornado", hint: "Gira y se lleva todo a su paso.", effect: "tornado" },
+        VIENTO: { category: "naturaleza", label: "Viento", hint: "No se ve pero mueve las hojas.", effect: "tornado" },
+        REMOLINO: { category: "naturaleza", label: "Remolino", hint: "Gira sobre sí mismo.", effect: "tornado" },
+
+        GALAXIA: { category: "universo", label: "Galaxia", hint: "Una ciudad de estrellas.", effect: "galaxia" },
+        ESTRELLA: { category: "universo", label: "Estrella", hint: "Un punto brillante en la noche.", effect: "galaxia" },
+        LUNA: { category: "universo", label: "Luna", hint: "Nos alumbra de noche.", effect: "galaxia" },
+        SOL: { category: "universo", label: "Sol", hint: "La estrella más cercana.", effect: "galaxia" },
+        COMETA: { category: "universo", label: "Cometa", hint: "Una estrella con cola que viaja.", effect: "galaxia" },
+        PLANETA: { category: "universo", label: "Planeta", hint: "Gira alrededor de una estrella.", effect: "galaxia" },
+        NEBULOSA: { category: "universo", label: "Nebulosa", hint: "Nube de gas y polvo en el espacio.", effect: "galaxia" },
 
         CODIGO: { category: "tecnologia", label: "Código", hint: "Lo que escribís para hablarle a la máquina.", effect: "codigo" },
-        PIXEL: { category: "tecnologia", label: "Píxel", hint: "El punto más pequeño de una imagen.", effect: "codigo" },
-        ROBOT: { category: "tecnologia", label: "Robot", hint: "Una máquina que puede hacer tareas.", effect: "codigo" },
-        DATOS: { category: "tecnologia", label: "Datos", hint: "Información que se guarda y procesa.", effect: "codigo" },
-        WEB: { category: "tecnologia", label: "Web", hint: "La red de páginas que navegás.", effect: "codigo" },
+        HTML: { category: "tecnologia", label: "HTML", hint: "El esqueleto de toda página.", effect: "codigo" },
+        CSS: { category: "tecnologia", label: "CSS", hint: "Lo que viste a HTML de colores.", effect: "codigo" },
         PYTHON: { category: "tecnologia", label: "Python", hint: "Un lenguaje con nombre de serpiente.", effect: "codigo" },
         JAVASCRIPT: { category: "tecnologia", label: "JavaScript", hint: "El lenguaje que da vida a las páginas.", effect: "codigo" },
         FLASK: { category: "tecnologia", label: "Flask", hint: "Un framework pequeño para Python.", effect: "codigo" },
-        HTML: { category: "tecnologia", label: "HTML", hint: "El esqueleto de toda página.", effect: "codigo" },
-        CSS: { category: "tecnologia", label: "CSS", hint: "Lo que viste a HTML de colores.", effect: "codigo" },
-        INTERNET: { category: "tecnologia", label: "Internet", hint: "Conecta computadoras de todo el mundo.", effect: "codigo" },
+        WEB: { category: "tecnologia", label: "Web", hint: "La red de páginas que navegás.", effect: "codigo" },
         ALGORITMO: { category: "tecnologia", label: "Algoritmo", hint: "Una receta paso a paso para resolver algo.", effect: "codigo" },
+
+        BOSQUEJO: { category: "especial", label: "Bosquejo", hint: "Un dibujo rápido, a mano.", effect: "bosquejo" },
+
         BINARIO: { category: "tecnologia", label: "Binario", hint: "Solo ceros y unos.", effect: "binario" },
 
-        /* ✅ Solo los 4 animales con silueta */
-        GATO: { category: "animales", label: "Gato", hint: "Duerme mucho y hace miau.", effect: "gato" },
-        GATOS: { category: "animales", label: "Gatos", hint: "Más de uno del anterior.", effect: "gato" },
-        ZORRO: { category: "animales", label: "Zorro", hint: "Astuto, naranja y con cola larga.", effect: "zorro" },
         CUERVO: { category: "animales", label: "Cuervo", hint: "Negro, inteligente, observa todo.", effect: "cuervo" },
+        ZORRO: { category: "animales", label: "Zorro", hint: "Astuto, naranja y con cola larga.", effect: "zorro" },
         MAPACHE: { category: "animales", label: "Mapache", hint: "Travieso y con antifaz natural.", effect: "mapache" },
 
-        ARTE: { category: "magia", label: "Arte", hint: "Expresión que no se mide en fórmulas.", effect: "caos" },
-        MAGIA: { category: "magia", label: "Magia", hint: "Lo que parece imposible pero sucede.", effect: "caos" },
-        SECRETO: { category: "magia", label: "Secreto", hint: "Lo que no todos saben.", effect: "caos" },
-        SUEÑO: { category: "magia", label: "Sueño", hint: "Pasa cuando dormís.", effect: "caos" },
-        CAOS: { category: "magia", label: "Caos", hint: "Todo desordenado a la vez.", effect: "caos" },
-        IMAGINACION: { category: "magia", label: "Imaginación", hint: "Crear cosas que no existen.", effect: "caos" },
-        DESCUBRIR: { category: "magia", label: "Descubrir", hint: "Encontrar algo que estaba escondido.", effect: "caos" },
-        LABERINTO: { category: "magia", label: "Laberinto", hint: "Un camino con muchas vueltas.", effect: "caos" },
-        MISTERIO: { category: "magia", label: "Misterio", hint: "Algo que todavía no tiene explicación.", effect: "caos" },
-        ABRACADABRA: { category: "magia", label: "Abracadabra", hint: "Palabra de mago.", effect: "caos" },
-        SONRISA: { category: "magia", label: "Sonrisa", hint: "Gestos que se contagian.", effect: "caos" },
-        CATEDRAL: { category: "magia", label: "Catedral", hint: "Grande, antigua y con vidrieras.", effect: "caos" },
-
-        SUPERCALIFRAGILISTICOESPIALIDOSO: {
+        SUPERCALIFRASTILISTICOESPIALIDOSO: {
             category: "especial", label: "¡Supersorpresa!",
             hint: "Una palabra larguísima de una canción.",
-            effect: "super", reward: "Activación mágica máxima"
+            effect: "super"
         },
-        GRAVEDAD: { category: "especial", label: "Gravedad", hint: "Lo que hace caer las cosas al piso.", effect: "gravedad" },
-        PASTEL: { category: "especial", label: "Pastel", hint: "Un color suave, rosado y dulce.", effect: "pastel" },
-        ESPEJO: { category: "especial", label: "Espejo", hint: "Refleja lo que tenés enfrente.", effect: "caos" },
-        ANUBIS: { category: "especial", label: "Anubis", hint: "El nombre de alguien muy especial.", effect: "anubis" }
+        SUPERCALIFRAGILISTICOESPIALIDOSO: {
+            category: "especial", label: "¡Supersorpresa!",
+            hint: "La misma palabra, con la otra ortografía.",
+            effect: "super", alias: true
+        }
     };
 
     const normalize = (s) =>
@@ -784,7 +713,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .replace(/Ñ/g, "N")
             .replace(/[^A-Z]/g, "");
 
-    const SECRETS_KEY = "portfolio-secrets-v1";
+    const SECRETS_KEY = "portfolio-secrets-v2";
 
     function loadProgress() {
         try {
@@ -818,11 +747,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const toast = document.getElementById("word-toast");
 
     const LETTER_POOL = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-    const LETTER_WEIGHTS = {
-        A: 8, B: 1, C: 2, D: 3, E: 8, F: 1, G: 1, H: 1, I: 6, J: 1,
-        K: 1, L: 4, M: 2, N: 6, O: 7, P: 2, Q: 1, R: 5, S: 5, T: 5,
-        U: 3, V: 1, W: 1, X: 1, Y: 1, Z: 1
-    };
+    const LETTER_WEIGHTS = { A: 8, B: 1, C: 2, D: 3, E: 8, F: 1, G: 1, H: 1, I: 6, J: 1, K: 1, L: 4, M: 2, N: 6, O: 7, P: 2, Q: 1, R: 5, S: 5, T: 5, U: 3, V: 1, W: 1, X: 1, Y: 1, Z: 1 };
     const TOTAL_WEIGHT = Object.values(LETTER_WEIGHTS).reduce((a, b) => a + b, 0);
     function pickRandomLetter() {
         let r = Math.random() * TOTAL_WEIGHT;
@@ -830,10 +755,233 @@ document.addEventListener("DOMContentLoaded", () => {
         return "A";
     }
 
+    const PALETTE_EFFECTS = ["cielo", "lluvia", "galaxia", "codigo", "binario", "bosquejo"];
     let activeEffects = [];
     let toastTimer = null;
     let spawnCount = 0;
 
+    /* ═══════════════════════════════════════════
+       15. TORNADO — arranca tarjetas, las tira,
+       y después el usuario puede reordenarlas
+       ═══════════════════════════════════════════ */
+    let tornadoTimer = null;
+    let tornadoActiveTargets = [];
+    const tornadoResetBtn = document.getElementById("tornado-reset");
+    const TORNADO_DURATION = 30000;
+    const TORNADO_SELECTOR = [
+        ".project-card",
+        ".skill-card",
+        ".cert-card",
+        ".note-card",
+        ".hero-frame",
+        ".module-card",
+        ".timeline-item",
+        ".formation-feature",
+        ".video-frame"
+    ].join(", ");
+
+    function spawnOrbitParticles() {
+        const container = document.querySelector(".fx-tornado");
+        if (!container) return;
+        clearOrbitParticles();
+        const count = reducedMotion ? 0 : 7;
+        for (let i = 0; i < count; i++) {
+            const span = document.createElement("span");
+            span.className = "tornado-orbit-particle";
+            const r = 80 + Math.random() * 280;
+            const d = 2.5 + Math.random() * 3.5;
+            const delay = -Math.random() * 5;
+            const size = 20 + Math.random() * 50;
+            span.style.setProperty("--orbit-r", r + "px");
+            span.style.setProperty("--orbit-d", d + "s");
+            span.style.setProperty("--orbit-delay", delay + "s");
+            span.style.width = size + "px";
+            span.style.height = size + "px";
+            span.style.borderColor = i % 2 === 0 ? "var(--accent)" : "var(--accent-soft)";
+            span.style.borderStyle = i % 3 === 0 ? "solid" : "dashed";
+            container.appendChild(span);
+        }
+    }
+    function clearOrbitParticles() {
+        document.querySelectorAll(".tornado-orbit-particle").forEach(el => el.remove());
+    }
+
+    function startTornado() {
+        if (document.body.classList.contains("tornado-active")) return;
+        document.body.classList.add("tornado-active");
+        document.body.classList.remove("tornado-settled");
+        if (tornadoResetBtn) tornadoResetBtn.hidden = true;
+
+        spawnOrbitParticles();
+
+        const targets = Array.from(document.querySelectorAll(TORNADO_SELECTOR))
+            .filter(el => !el.hidden && el.offsetParent !== null);
+        tornadoActiveTargets = targets;
+
+        targets.forEach(el => {
+            const distance = 80 + Math.random() * 380;
+            const angle = Math.random() * Math.PI * 2;
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance * 0.55 + 40 + Math.random() * 180;
+            const rot = (Math.random() - 0.5) * 180;
+
+            el.style.setProperty("--tx", tx.toFixed(0) + "px");
+            el.style.setProperty("--ty", ty.toFixed(0) + "px");
+            el.style.setProperty("--rot", rot.toFixed(0) + "deg");
+            el.classList.remove("is-loose", "is-dropped", "is-dragging");
+            el.style.removeProperty("transform");
+            el.style.removeProperty("animation");
+            el._tornadoDropped = false;
+            el._looseHandlerAttached = false;
+            el.classList.add("tornado-throwing");
+        });
+
+        clearTimeout(tornadoTimer);
+        tornadoTimer = setTimeout(settleTornado, TORNADO_DURATION);
+    }
+
+    function settleTornado() {
+        document.body.classList.remove("tornado-active");
+        document.body.classList.add("tornado-settled");
+        clearOrbitParticles();
+
+        // Elegir tarjetas "sueltas" entre las visibles
+        const visible = tornadoActiveTargets.filter(el => {
+            const r = el.getBoundingClientRect();
+            return r.right > 40 && r.left < window.innerWidth - 40
+                && r.bottom > 40 && r.top < window.innerHeight - 40;
+        });
+        const pool = visible.length >= 2 ? visible : tornadoActiveTargets;
+        const shuffled = pool.slice().sort(() => Math.random() - 0.5);
+        const looseCount = Math.min(5, Math.max(3, Math.floor(shuffled.length * 0.35)));
+
+        shuffled.slice(0, looseCount).forEach(el => {
+            el.classList.add("is-loose");
+            attachLooseCardDrag(el);
+        });
+
+        if (tornadoResetBtn) tornadoResetBtn.hidden = false;
+        showToast("El tornado terminó · arrastrá las tarjetas sueltas para reordenar, o restablecé el orden");
+    }
+
+    function attachLooseCardDrag(el) {
+        if (el._looseHandlerAttached) return;
+        el._looseHandlerAttached = true;
+
+        let dragState = null;
+
+        const onDown = (ev) => {
+            if (ev.button !== undefined && ev.button !== 0) return;
+            if (el._tornadoDropped) return;
+            if (!el.classList.contains("is-loose")) return;
+            if (!document.body.classList.contains("tornado-settled")) return;
+
+            const cs = window.getComputedStyle(el);
+            const matrix = cs.transform === "none" ? new DOMMatrix() : new DOMMatrix(cs.transform);
+            const baseX = matrix.m41 || 0;
+            const baseY = matrix.m42 || 0;
+            const baseRot = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI;
+
+            dragState = {
+                id: ev.pointerId,
+                startX: ev.clientX,
+                startY: ev.clientY,
+                baseX, baseY, baseRot,
+                moved: false,
+                started: false
+            };
+            try { el.setPointerCapture(ev.pointerId); } catch (_) { }
+        };
+
+        const onMove = (ev) => {
+            if (!dragState || ev.pointerId !== dragState.id) return;
+            const dx = ev.clientX - dragState.startX;
+            const dy = ev.clientY - dragState.startY;
+            if (!dragState.moved && Math.hypot(dx, dy) < 8) return;
+            if (!dragState.moved) {
+                dragState.moved = true;
+                // Congelar la animación en el valor actual
+                const cs = window.getComputedStyle(el);
+                const matrix = cs.transform === "none" ? new DOMMatrix() : new DOMMatrix(cs.transform);
+                dragState.baseX = matrix.m41 || 0;
+                dragState.baseY = matrix.m42 || 0;
+                dragState.baseRot = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI;
+                el.style.animation = "none";
+                el.classList.add("is-dragging");
+            }
+            ev.preventDefault();
+            const nx = dragState.baseX + dx;
+            const ny = dragState.baseY + dy;
+            el.style.setProperty("--tx", nx + "px");
+            el.style.setProperty("--ty", ny + "px");
+            el.style.setProperty("--rot", dragState.baseRot + "deg");
+            el.style.transform = `translate(${nx}px, ${ny}px) rotate(${dragState.baseRot}deg)`;
+        };
+
+        const onUp = (ev) => {
+            if (!dragState || ev.pointerId !== dragState.id) return;
+            const wasMoved = dragState.moved;
+            try { el.releasePointerCapture(ev.pointerId); } catch (_) { }
+            el.classList.remove("is-dragging");
+            dragState = null;
+            if (!wasMoved) {
+                // Fue un click → la tarjeta se cae
+                dropTornadoCard(el);
+            }
+        };
+
+        el.addEventListener("pointerdown", onDown);
+        el.addEventListener("pointermove", onMove);
+        el.addEventListener("pointerup", onUp);
+        el.addEventListener("pointercancel", onUp);
+        el._looseHandlers = { onDown, onMove, onUp };
+    }
+
+    function dropTornadoCard(el) {
+        if (el._tornadoDropped) return;
+        el._tornadoDropped = true;
+        el.classList.remove("is-loose");
+        el.classList.add("is-dropped");
+        if (el._looseHandlers) {
+            el.removeEventListener("pointerdown", el._looseHandlers.onDown);
+            el.removeEventListener("pointermove", el._looseHandlers.onMove);
+            el.removeEventListener("pointerup", el._looseHandlers.onUp);
+            el.removeEventListener("pointercancel", el._looseHandlers.onUp);
+            el._looseHandlers = null;
+        }
+    }
+
+    function stopTornado() {
+        clearTimeout(tornadoTimer);
+        tornadoTimer = null;
+        clearOrbitParticles();
+        document.body.classList.remove("tornado-active", "tornado-settled");
+        document.querySelectorAll(".tornado-throwing").forEach(el => {
+            el.classList.remove("tornado-throwing", "is-loose", "is-dropped", "is-dragging");
+            el.style.removeProperty("--tx");
+            el.style.removeProperty("--ty");
+            el.style.removeProperty("--rot");
+            el.style.removeProperty("transform");
+            el.style.removeProperty("animation");
+            el._tornadoDropped = false;
+            el._looseHandlerAttached = false;
+            if (el._looseHandlers) {
+                el.removeEventListener("pointerdown", el._looseHandlers.onDown);
+                el.removeEventListener("pointermove", el._looseHandlers.onMove);
+                el.removeEventListener("pointerup", el._looseHandlers.onUp);
+                el.removeEventListener("pointercancel", el._looseHandlers.onUp);
+                el._looseHandlers = null;
+            }
+        });
+        tornadoActiveTargets = [];
+        if (tornadoResetBtn) tornadoResetBtn.hidden = true;
+    }
+
+    tornadoResetBtn?.addEventListener("click", () => {
+        removeEffect("tornado");
+    });
+
+    /* 16. Efectos */
     function restoreOrigin(originEl) {
         if (!originEl) return;
         originEl.classList.remove("is-taken");
@@ -871,11 +1019,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         function onMove(e) {
             if (!st || e.pointerId !== st.id) return;
-            if (!st.moved && Math.abs(e.clientX - st.sx) > 6) {
-                st.moved = true;
-                chip.classList.add("is-dragging");
-                chip.setPointerCapture?.(e.pointerId);
-            }
+            if (!st.moved && Math.abs(e.clientX - st.sx) > 6) { st.moved = true; chip.classList.add("is-dragging"); chip.setPointerCapture?.(e.pointerId); }
             if (!st.moved) return;
             e.preventDefault();
             const x = e.clientX;
@@ -913,7 +1057,8 @@ document.addEventListener("DOMContentLoaded", () => {
             chip.remove();
         });
         tray.classList.remove("is-visible");
-        applyEffects([], true);
+        applyEffects([]);
+        spawnCount = 0;
     }
 
     function checkWord() {
@@ -921,8 +1066,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!word) return;
         const entry = VOCABULARY[word];
         if (!entry) return;
-
-        addEffect(entry.effect, word, entry.label);
+        addEffect(entry.effect);
         markDiscovered(word);
         showToast(`encontraste ${entry.label.toUpperCase()}`);
         setTimeout(() => {
@@ -934,21 +1078,48 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 300);
     }
 
-    function addEffect(effectKey) {
-        if (effectKey === "super") { activeEffects = ["super"]; }
-        else {
-            if (activeEffects.includes(effectKey)) return;
-            activeEffects.push(effectKey);
-            if (activeEffects.length > 3) activeEffects.shift();
+    function addEffect(key) {
+        if (PALETTE_EFFECTS.includes(key)) {
+            activeEffects = activeEffects.filter(e => !PALETTE_EFFECTS.includes(e));
         }
+        if (!activeEffects.includes(key)) activeEffects.push(key);
         applyEffects(activeEffects);
     }
 
-    function applyEffects(list, clear = false) {
-        if (clear) list = [];
-        activeEffects = list;
+    function removeEffect(key) {
+        activeEffects = activeEffects.filter(e => e !== key);
+        applyEffects(activeEffects);
+    }
+
+    function applyEffects(list) {
+        activeEffects = list.slice();
+        const wasTornado = document.body.classList.contains("tornado-active")
+            || document.body.classList.contains("tornado-settled");
+        const willTornado = list.includes("tornado");
+
         if (!list.length) delete document.body.dataset.effect;
         else document.body.dataset.effect = list.join(" ");
+
+        if (willTornado && !wasTornado) {
+            startTornado();
+        } else if (!willTornado && wasTornado) {
+            stopTornado();
+        }
+
+        manageAnimals(list);
+
+        if (list.includes("super")) startDance();
+        else stopDance();
+
+        if (list.includes("binario")) applyBinaryConversion();
+        else restoreBinaryConversion();
+
+        if (!list.length) {
+            document.querySelectorAll("[style*='--rdx'], [style*='--rdy']").forEach(el => {
+                el.style.removeProperty("--rdx");
+                el.style.removeProperty("--rdy");
+            });
+        }
     }
 
     function showToast(text) {
@@ -956,16 +1127,138 @@ document.addEventListener("DOMContentLoaded", () => {
         toast.textContent = text;
         toast.classList.add("is-visible");
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 3200);
+        toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 3800);
     }
 
     window.__portfolioAddChip = addChip;
     window.__portfolioCheckWord = checkWord;
     window.__portfolioShowToast = showToast;
 
-    /* ═══════════════════════════════════════════
-       13.B — ARCHIVO DE SECRETOS
-       ═══════════════════════════════════════════ */
+    /* 17. Música */
+    const specialMusic = document.getElementById("special-music");
+    const musicToggle = document.getElementById("music-toggle");
+    let musicPlaying = false;
+
+    function startDance() {
+        if (!specialMusic || !musicToggle) return;
+        specialMusic.currentTime = 0;
+        const p = specialMusic.play();
+        if (p && p.catch) {
+            p.then(() => { musicPlaying = true; musicToggle.hidden = true; })
+                .catch(() => { musicToggle.hidden = false; musicToggle.textContent = "♪ Activar música"; });
+        }
+        setTimeout(() => {
+            if (activeEffects.includes("super")) stopDance();
+        }, 20000);
+    }
+    function stopDance() {
+        if (specialMusic) { try { specialMusic.pause(); } catch (_) { } }
+        musicPlaying = false;
+        if (musicToggle) musicToggle.hidden = true;
+    }
+    musicToggle?.addEventListener("click", () => {
+        if (!specialMusic) return;
+        if (musicPlaying) { specialMusic.pause(); musicPlaying = false; musicToggle.textContent = "♪ Reanudar música"; }
+        else {
+            specialMusic.play().then(() => { musicPlaying = true; musicToggle.textContent = "⏸ Pausar música"; })
+                .catch(() => { musicToggle.textContent = "♪ Activar música"; });
+        }
+    });
+
+    /* 18. Binario */
+    function toBinaryString(str) {
+        return [...str].map(c => c.charCodeAt(0).toString(2).padStart(8, "0")).join(" ");
+    }
+    function applyBinaryConversion() {
+        document.querySelectorAll("[data-binary]").forEach(el => {
+            if (!el._original) el._original = el.textContent;
+            el.textContent = toBinaryString(el._original);
+        });
+    }
+    function restoreBinaryConversion() {
+        document.querySelectorAll("[data-binary]").forEach(el => {
+            if (el._original) { el.textContent = el._original; delete el._original; }
+        });
+    }
+
+    /* 19. Shimeji */
+    const animals = {
+        cuervo: {
+            el: document.querySelector('.shimeji[data-animal="cuervo"]'),
+            x: window.innerWidth - 120, y: window.innerHeight - 140,
+            vx: -0.4, vy: 0, frame: 0,
+            states: ["assets/cuervo/cuervo_parado.png", "assets/cuervo/cuervo_alas_abiertas.png", "assets/cuervo/cuervo_alas_cerradas.png"]
+        },
+        zorro: {
+            el: document.querySelector('.shimeji[data-animal="zorro"]'),
+            x: 60, y: window.innerHeight - 140,
+            vx: 0.6, vy: 0, frame: 0,
+            states: ["assets/zorro/zorro_parado.png", "assets/zorro/zorro_caminando_1.png", "assets/zorro/zorro_caminando_2.png"]
+        },
+        mapache: {
+            el: document.querySelector('.shimeji[data-animal="mapache"]'),
+            x: window.innerWidth / 2, y: window.innerHeight - 140,
+            vx: -0.5, vy: 0, frame: 0,
+            states: ["assets/raccoon/raccoon_stay.png", "assets/raccoon/walk_raccoon_1.png", "assets/raccoon/walk_raccoon_2.png"]
+        }
+    };
+
+    Object.entries(animals).forEach(([key, a]) => {
+        if (!a.el) return;
+        const img = a.el.querySelector(".shimeji-sprite");
+        if (!img) return;
+        const mark = () => a.el.classList.remove("is-missing");
+        const fail = () => a.el.classList.add("is-missing");
+        img.addEventListener("load", mark);
+        img.addEventListener("error", fail);
+        if (img.complete) {
+            if (img.naturalWidth > 0) mark();
+            else fail();
+        }
+        a.el.addEventListener("click", () => {
+            a.vx = (Math.random() - 0.5) * 4;
+            a.vy = -2;
+        });
+    });
+
+    let lastAnimTime = performance.now();
+    let mouseX = -1, mouseY = -1;
+    document.addEventListener("pointermove", (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
+    function animateAnimals(now) {
+        const dt = Math.min(50, now - lastAnimTime) / 16;
+        lastAnimTime = now;
+        Object.values(animals).forEach(a => {
+            if (!a.el || a.el.hidden) return;
+            a.x += a.vx * dt;
+            a.y += a.vy * dt;
+            a.vy += 0.15 * dt;
+            const floor = window.innerHeight - 110;
+            if (a.y > floor) { a.y = floor; a.vy = 0; }
+            if (a.x < 10) { a.x = 10; a.vx = Math.abs(a.vx); }
+            if (a.x > window.innerWidth - 80) { a.x = window.innerWidth - 80; a.vx = -Math.abs(a.vx); }
+            if (Math.random() < 0.005) a.vx = (Math.random() - 0.5) * 2;
+            if (a.el.dataset.animal === "cuervo" && mouseX > 0) {
+                a.el.classList.toggle("is-flipped", mouseX < a.x + 32);
+            } else {
+                a.el.classList.toggle("is-flipped", a.vx < 0);
+            }
+            a.frame = Math.floor(now / 300) % 3;
+            const img = a.el.querySelector(".shimeji-sprite");
+            if (img && a.states[a.frame] && img.src !== a.states[a.frame]) img.src = a.states[a.frame];
+            a.el.style.transform = `translate(${a.x - 32}px, ${a.y - 80}px)`;
+        });
+        requestAnimationFrame(animateAnimals);
+    }
+    requestAnimationFrame(animateAnimals);
+
+    function manageAnimals(list) {
+        if (animals.cuervo?.el) animals.cuervo.el.hidden = !list.includes("cuervo");
+        if (animals.zorro?.el) animals.zorro.el.hidden = !list.includes("zorro");
+        if (animals.mapache?.el) animals.mapache.el.hidden = !list.includes("mapache");
+    }
+
+    /* 20. Secretos */
     const secretsModal = document.getElementById("secrets-modal");
     const secretsGrid = document.getElementById("secrets-grid");
     const secretsBtn = document.getElementById("secrets-btn");
@@ -976,14 +1269,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const secretsProgressFill = document.getElementById("secrets-progress-fill");
     const secretsReset = document.getElementById("secrets-reset");
     const secretsFilters = document.querySelectorAll(".secrets-filter");
+    const secretsAnnouncer = document.getElementById("secrets-announcer");
 
     let activeFilter = "all";
+    let secretsOpen = false;
+    let secretsPrevFocus = null;
 
     function getStatus(wordKey) {
         const p = progress[wordKey];
         return (p && p.status === "discovered") ? "discovered" : "undiscovered";
     }
-
     function renderSecretCard(wordKey) {
         const entry = VOCABULARY[wordKey];
         const status = getStatus(wordKey);
@@ -991,42 +1286,30 @@ document.addEventListener("DOMContentLoaded", () => {
         card.className = "secret-card";
         card.dataset.status = status;
         card.dataset.category = entry.category;
-
         const nameEl = document.createElement("h3");
         nameEl.className = "secret-card-name";
-        if (status === "discovered") {
-            nameEl.textContent = wordKey;
-        } else {
-            nameEl.textContent = wordKey.split("").map((ch, i) => i === 0 ? ch : "·").join(" ");
-        }
-
+        if (status === "discovered") nameEl.textContent = wordKey;
+        else nameEl.textContent = wordKey.split("").map((ch, i) => i === 0 ? ch : "·").join(" ");
         const statusEl = document.createElement("span");
         statusEl.className = "secret-card-status";
         statusEl.textContent = status === "discovered" ? "✓ descubierta" : "pendiente";
-
         const head = document.createElement("div");
         head.className = "secret-card-head";
         head.appendChild(nameEl);
         head.appendChild(statusEl);
-
         const categoryEl = document.createElement("span");
         categoryEl.className = "secret-card-category";
         categoryEl.textContent = entry.category;
-
         const hintEl = document.createElement("p");
         hintEl.className = "secret-card-hint";
-        if (status === "discovered") {
-            hintEl.textContent = entry.reward ? `Desbloquea: ${entry.reward}` : `Desbloquea el efecto «${entry.label}».`;
-        } else {
-            hintEl.textContent = entry.hint;
-        }
-
+        hintEl.textContent = status === "discovered"
+            ? `Desbloquea el efecto «${entry.label}».`
+            : entry.hint;
         card.appendChild(head);
         card.appendChild(categoryEl);
         card.appendChild(hintEl);
         return card;
     }
-
     function renderSecretsGrid() {
         if (!secretsGrid) return;
         secretsGrid.innerHTML = "";
@@ -1036,13 +1319,11 @@ document.addEventListener("DOMContentLoaded", () => {
             secretsGrid.appendChild(renderSecretCard(wordKey));
         });
     }
-
     function updateSecretsUI() {
         const all = Object.keys(VOCABULARY);
         const total = all.length;
         const found = all.filter(k => getStatus(k) === "discovered").length;
         const pending = total - found;
-
         if (secretsCount) secretsCount.textContent = `${found}/${total}`;
         if (secretsFoundEl) secretsFoundEl.textContent = found;
         if (secretsTotalEl) secretsTotalEl.textContent = total;
@@ -1051,29 +1332,40 @@ document.addEventListener("DOMContentLoaded", () => {
             const pct = total === 0 ? 0 : Math.round((found / total) * 100);
             secretsProgressFill.style.width = pct + "%";
         }
+        if (secretsAnnouncer) secretsAnnouncer.textContent = `${found} de ${total} secretos descubiertos`;
         renderSecretsGrid();
     }
-
     function openSecrets() {
         if (!secretsModal) return;
         updateSecretsUI();
+        secretsPrevFocus = document.activeElement;
         secretsModal.classList.add("is-open");
         secretsModal.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
+        secretsOpen = true;
         setTimeout(() => secretsModal.querySelector(".secrets-close")?.focus(), 80);
     }
-
     function closeSecrets() {
         if (!secretsModal) return;
         secretsModal.classList.remove("is-open");
         secretsModal.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
+        secretsOpen = false;
+        secretsPrevFocus?.focus?.();
+        secretsPrevFocus = null;
     }
-
     secretsBtn?.addEventListener("click", openSecrets);
     document.querySelectorAll("[data-close-secrets]").forEach(el => el.addEventListener("click", closeSecrets));
     document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && secretsModal?.classList.contains("is-open")) closeSecrets();
+        if (!secretsOpen) return;
+        if (e.key === "Escape") { closeSecrets(); return; }
+        if (e.key === "Tab") {
+            const f = secretsModal.querySelectorAll('a[href], button:not([disabled])');
+            if (!f.length) return;
+            const first = f[0], last = f[f.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
     });
     secretsFilters.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -1089,20 +1381,15 @@ document.addEventListener("DOMContentLoaded", () => {
         updateSecretsUI();
         showToast("Progreso reiniciado");
     });
-
     updateSecretsUI();
 
-    /* ═══════════════════════════════════════════
-       14.A — LETRAS EN EL TEXTO
-       ✅ No se oculta la letra original; solo se bloquea el segundo clic
-       ═══════════════════════════════════════════ */
-    const floatLetters = document.querySelectorAll(".float-letter:not(.float-letter--deco)");
+    /* 21. Letras flotantes */
+    const floatLetters = document.querySelectorAll(".float-letter");
     floatLetters.forEach((el) => {
         const collect = () => {
             if (el.classList.contains("is-taken")) return;
             const letter = el.dataset.letter;
             if (!letter) return;
-
             const rect = el.getBoundingClientRect();
             const fly = document.createElement("div");
             fly.className = "float-letter-fly";
@@ -1120,24 +1407,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 fly.style.opacity = "0";
             });
             setTimeout(() => fly.remove(), 700);
-
             el.classList.add("is-taken");
             el.setAttribute("aria-disabled", "true");
             el.tabIndex = -1;
-
             addChip(letter, el);
             checkWord();
         };
-
         el.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); collect(); });
         el.addEventListener("keydown", (e) => {
             if (e.key === "Enter" || e.key === " ") { e.preventDefault(); collect(); }
         });
     });
 
-    /* ═══════════════════════════════════════════
-       14.C — LETRA I DETRÁS DEL RETRATO
-       ═══════════════════════════════════════════ */
+    /* 22. Letra I detrás del retrato */
     const letterBack = document.querySelector(".letter--back");
     if (letterBack) {
         const collect = () => {
@@ -1152,11 +1434,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    /* ═══════════════════════════════════════════
-       14.C bis — TARJETA ARRASTRABLE (PolitiCore)
-       ═══════════════════════════════════════════ */
-    document.querySelectorAll(".reveal-object-wrap").forEach((wrap) => {
-        const obj = wrap.querySelector("[data-reveal-drag]");
+    /* 23. Drag reveal (tarjetas con letra oculta) */
+    document.querySelectorAll(".drag-wrap").forEach((wrap) => {
+        const obj = wrap.querySelector("[data-drag-reveal]");
         const letter = wrap.querySelector(".letter");
         if (!obj || !letter) return;
 
@@ -1168,97 +1448,86 @@ document.addEventListener("DOMContentLoaded", () => {
             checkWord();
         });
 
-        let dx = 0, dy = 0, active = false, moved = false;
+        let dx = 0, dy = 0;
+        let active = false, moved = false;
+        let pointerId = null;
         let startX = 0, startY = 0, baseDx = 0, baseDy = 0;
         let returnTimer = null;
 
-        wrap.addEventListener("click", (e) => {
-            if (wrap.dataset.wasDragged === "true") { e.stopPropagation(); e.preventDefault(); }
-        }, true);
-
-        obj.addEventListener("pointerdown", (e) => {
-            if (e.button !== undefined && e.button !== 0) return;
-            active = true; moved = false;
-            startX = e.clientX; startY = e.clientY;
-            baseDx = dx; baseDy = dy;
-            obj.classList.add("is-dragging");
-            obj.setPointerCapture?.(e.pointerId);
-            clearTimeout(returnTimer);
-        });
-        obj.addEventListener("pointermove", (e) => {
-            if (!active) return;
-            dx = baseDx + (e.clientX - startX);
-            dy = baseDy + (e.clientY - startY);
-            if (Math.hypot(dx, dy) > 6) {
+        function onDragMove(e) {
+            if (!active || e.pointerId !== pointerId) return;
+            const rawX = baseDx + (e.clientX - startX);
+            const rawY = baseDy + (e.clientY - startY);
+            if (!moved && Math.hypot(rawX - baseDx, rawY - baseDy) < 10) return;
+            if (!moved) {
                 moved = true;
-                e.preventDefault();
-                obj.style.setProperty("--rdx", dx + "px");
-                obj.style.setProperty("--rdy", dy + "px");
-                wrap.classList.toggle("is-revealed", Math.hypot(dx, dy) > 20);
+                obj.classList.add("is-dragging");
+                try { obj.setPointerCapture(e.pointerId); } catch (_) { }
+                clearTimeout(returnTimer);
             }
-        });
-        const end = (e) => {
+            e.preventDefault();
+            dx = Math.max(-120, Math.min(120, rawX));
+            dy = Math.max(-120, Math.min(120, rawY));
+            obj.style.setProperty("--rdx", dx + "px");
+            obj.style.setProperty("--rdy", dy + "px");
+            const isRevealed = Math.hypot(dx, dy) > 20;
+            wrap.classList.toggle("is-revealed", isRevealed);
+            if (isRevealed) letter.removeAttribute("inert");
+            else if (!letter.classList.contains("is-taken")) letter.setAttribute("inert", "");
+        }
+
+        function onDragEnd(e) {
             if (!active) return;
+            if (e.pointerId !== undefined && e.pointerId !== pointerId) return;
             active = false;
-            obj.classList.remove("is-dragging");
-            obj.releasePointerCapture?.(e.pointerId);
+            window.removeEventListener("pointermove", onDragMove);
+            window.removeEventListener("pointerup", onDragEnd);
+            window.removeEventListener("pointercancel", onDragEnd);
             if (moved) {
+                obj.classList.remove("is-dragging");
+                try { obj.releasePointerCapture(pointerId); } catch (_) { }
                 wrap.dataset.wasDragged = "true";
-                setTimeout(() => { wrap.dataset.wasDragged = "false"; }, 60);
+                setTimeout(() => { wrap.dataset.wasDragged = "false"; }, 100);
                 clearTimeout(returnTimer);
                 returnTimer = setTimeout(() => {
-                    if (active) return;
                     dx = 0; dy = 0;
                     obj.style.setProperty("--rdx", "0px");
                     obj.style.setProperty("--rdy", "0px");
                     wrap.classList.remove("is-revealed");
-                }, 10000);
+                    if (!letter.classList.contains("is-taken")) letter.setAttribute("inert", "");
+                }, 8000);
             }
-        };
-        obj.addEventListener("pointerup", end);
-        obj.addEventListener("pointercancel", end);
+            pointerId = null;
+        }
+
+        obj.addEventListener("pointerdown", (e) => {
+            if (e.button !== undefined && e.button !== 0) return;
+            // No activar drag-reveal durante el tornado
+            if (document.body.classList.contains("tornado-active") || document.body.classList.contains("tornado-settled")) return;
+            if (e.target.closest("a, button, input, select, textarea")) {
+                if (!e.target.closest("summary")) return;
+            }
+            active = true;
+            moved = false;
+            pointerId = e.pointerId;
+            startX = e.clientX;
+            startY = e.clientY;
+            baseDx = dx;
+            baseDy = dy;
+            window.addEventListener("pointermove", onDragMove, { passive: false });
+            window.addEventListener("pointerup", onDragEnd);
+            window.addEventListener("pointercancel", onDragEnd);
+        });
+
+        wrap.addEventListener("click", (e) => {
+            if (wrap.dataset.wasDragged === "true") {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+        }, true);
     });
 
-    /* ═══════════════════════════════════════════
-       14.D — PISTA POR COLOR
-       ═══════════════════════════════════════════ */
-    const colorTarget = document.querySelector(".color-target");
-    const colorReveal = document.querySelector(".color-reveal");
-    if (colorTarget && colorReveal) {
-        colorTarget.addEventListener("click", () => {
-            if (colorReveal.dataset.collected === "true") return;
-            colorReveal.classList.add("is-revealed");
-            const letter = colorReveal.querySelector(".letter");
-            if (!letter) return;
-            letter.style.opacity = "1";
-            setTimeout(() => {
-                const rect = letter.getBoundingClientRect();
-                const fly = document.createElement("div");
-                fly.className = "float-letter-fly";
-                fly.textContent = letter.dataset.letter;
-                fly.style.left = rect.left + "px";
-                fly.style.top = rect.top + "px";
-                fly.style.fontSize = "1.4rem";
-                fly.style.color = getComputedStyle(letter).color;
-                document.body.appendChild(fly);
-                const trayRect = trayInner.getBoundingClientRect();
-                requestAnimationFrame(() => {
-                    fly.style.left = (trayRect.left + 20) + "px";
-                    fly.style.top = (trayRect.top + 12) + "px";
-                    fly.style.transform = "scale(.6)";
-                    fly.style.opacity = "0";
-                });
-                setTimeout(() => fly.remove(), 700);
-
-                addChip(letter.dataset.letter, letter);
-                checkWord();
-                letter.classList.add("is-taken");
-                colorReveal.dataset.collected = "true";
-            }, 350);
-        });
-    }
-
-    /* ── Botones de la bandeja ── */
+    /* 24. Bandeja */
     trayClear?.addEventListener("click", clearAll);
     trayAdd?.addEventListener("click", () => {
         if (spawnCount >= 40) { showToast("Muchas letras ya · limpiá para seguir"); return; }
@@ -1269,50 +1538,45 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     trayReset?.addEventListener("click", () => {
         clearAll();
-        activeEffects = [];
-        applyEffects([]);
         floatLetters.forEach(el => {
             el.classList.remove("is-taken");
             el.removeAttribute("aria-disabled");
             el.tabIndex = 0;
         });
         if (letterBack) letterBack.classList.remove("is-taken");
-        document.querySelectorAll(".reveal-object-wrap").forEach(w => {
+        document.querySelectorAll(".drag-wrap").forEach(w => {
             w.classList.remove("is-revealed");
-            const o = w.querySelector("[data-reveal-drag]");
+            const o = w.querySelector("[data-drag-reveal]");
             if (o) {
                 o.style.setProperty("--rdx", "0px");
                 o.style.setProperty("--rdy", "0px");
             }
+            const l = w.querySelector(".letter--hidden");
+            if (l && !l.classList.contains("is-taken")) l.setAttribute("inert", "");
         });
-        if (colorReveal) {
-            delete colorReveal.dataset.collected;
-            colorReveal.classList.remove("is-revealed");
-            const l = colorReveal.querySelector(".letter");
-            if (l) l.classList.remove("is-taken");
-        }
         document.querySelectorAll(".star[data-star-letter]").forEach(s => {
             s.classList.remove("is-revealed", "is-collected");
             clearTimeout(s._revealTimer);
         });
+        document.querySelectorAll(".hero-frame .letter--hidden").forEach(el => {
+            if (!el.classList.contains("is-taken")) el.setAttribute("inert", "");
+        });
         if (starAPI) starAPI.clearConstellation();
-
         window.__resetStickyNote?.();
-
         spawnCount = 0;
         showToast("Todo en su lugar ✦");
     });
 
     document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && activeEffects.length) {
-            applyEffects([]);
-            showToast("Efecto cerrado");
+        if (e.key === "Escape") {
+            if (activeEffects.length) {
+                applyEffects([]);
+                showToast("Efectos cerrados");
+            }
         }
     });
 
-    /* ═══════════════════════════════════════════
-       14.E — RECONOCIMIENTO DE LETRAS POR CONSTELACIÓN
-       ═══════════════════════════════════════════ */
+    /* 25. Constelación → letra */
     const LETTER_TEMPLATES = {
         V: [{ x: 0, y: 0 }, { x: 0.5, y: 1 }, { x: 1, y: 0 }],
         L: [{ x: 0, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }],
@@ -1329,18 +1593,15 @@ document.addEventListener("DOMContentLoaded", () => {
     function matchConstellationLetter(stars, positions, size, uids) {
         const connectedStars = stars.filter(st => uids.has(st.dataset.uid));
         if (connectedStars.length < 2) return null;
-
         const pts = connectedStars.map(st => {
             const p = positions.get(st);
             return { x: p.x + size() / 2, y: p.y + size() / 2 };
         });
-
         const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
         const minX = Math.min(...xs), maxX = Math.max(...xs);
         const minY = Math.min(...ys), maxY = Math.max(...ys);
         const w = maxX - minX || 1, h = maxY - minY || 1;
         const norm = pts.map(p => ({ x: (p.x - minX) / w, y: (p.y - minY) / h }));
-
         let bestLetter = null, bestScore = Infinity;
         for (const [letter, template] of Object.entries(LETTER_TEMPLATES)) {
             if (template.length !== norm.length) continue;
