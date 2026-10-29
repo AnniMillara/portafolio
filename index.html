@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#344E41">
     <meta name="description"
-        content="Portafolio de Annerill Anabalón — egresada de Programación, Santiago de Chile. Práctica profesional en curso. Proyectos: PolitiCore, NidoDePeluches, Querido Diario, Cinepedia.">
+        content="Portafolio de Annerill Anabalón — egresada de Programación, Santiago de Chile. Práctica profesional en curso. Proyectos: PolitiCore, ForestGuard, NidoDePeluches, Querido Diario, Cinepedia.">
     <title>Annerill Anabalón · Cuaderno de desarrollo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,8 +14,8 @@
         href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700;9..144,900&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@500;700&display=swap"
         rel="stylesheet">
     <script>document.documentElement.classList.add('js');</script>
-    <link rel="stylesheet" href="css/style.css">
-    <script defer src="js/script.js"></script>
+    <link rel="stylesheet" href="static/css/style.css">
+    <script defer src="static/js/script.js"></script>
 </head>
 
 <body>
@@ -99,13 +99,20 @@
                 aria-label="Abrir menú"><span></span><span></span></button>
         </div>
         <nav class="nav" id="main-nav" aria-label="Principal">
-            <a href="#sobre-mi">Sobre mí</a>
-            <a href="#habilidades">Habilidades</a>
-            <a href="#proyectos">Proyectos</a>
-            <a href="#proceso">Proceso</a>
-            <a href="#certificaciones">Certificaciones</a>
-            <a href="#video">Video</a>
-            <a class="nav-cta" href="#contacto">Contacto ↗</a>
+            <a href="#sobre-mi"><span class="nw"><span class="float-letter float-letter--deco" aria-hidden="true"
+                        style="--fa:-4px;--fd:-2s;--fs:5s;">S</span>obre mí</span></a>
+            <a href="#habilidades"><span class="nw"><span class="float-letter float-letter--deco" aria-hidden="true"
+                        style="--fa:-5px;--fd:-3.5s;--fs:5.5s;">H</span>abilidades</span></a>
+            <a href="#proyectos"><span class="nw"><span class="float-letter float-letter--deco" aria-hidden="true"
+                        style="--fa:-3.5px;--fd:-1s;--fs:4.5s;">P</span>royectos</span></a>
+            <a href="#proceso"><span class="nw"><span class="float-letter float-letter--deco" aria-hidden="true"
+                        style="--fa:-4.5px;--fd:-4s;--fs:6s;">P</span>roceso</span></a>
+            <a href="#certificaciones"><span class="nw">Certificacio<span class="float-letter float-letter--deco"
+                        aria-hidden="true" style="--fa:-4px;--fd:-2.5s;--fs:5.2s;">n</span>es</span></a>
+            <a href="#video"><span class="nw">Vide<span class="float-letter float-letter--deco" aria-hidden="true"
+                        style="--fa:-3.5px;--fd:-1.8s;--fs:4.8s;">o</span></span></a>
+            <a class="nav-cta" href="#contacto"><span class="nw"><span class="float-letter float-letter--deco"
+                        aria-hidden="true" style="--fa:-4px;--fd:-2s;--fs:5s;">C</span>ontacto ↗</span></a>
         </nav>
     </header>
 
@@ -117,23 +124,32 @@
 
             <div class="hero-grid">
                 <div class="hero-copy">
-                    <p class="kicker" data-binary>— portafolio personal / programación · santiago</p>
+                    <p class="kicker" data-binary>— <span class="nw">portafo<span class="float-letter" data-letter="L"
+                                tabindex="0" role="button" aria-label="Letra L interactiva"
+                                style="--fa:-4px;--fd:-3s;--fs:4.8s;">l</span>io</span> personal /
+                        <span class="nw">pro<span class="float-letter" data-letter="G" tabindex="0" role="button"
+                                aria-label="Letra G interactiva"
+                                style="--fa:-4px;--fd:-1.5s;--fs:4.5s;">g</span>ramación</span> · santiago
+                    </p>
                     <h1 id="hero-title" class="hero-title">
-                        <span class="line-1">Hola, soy</span>
-                        <span class="line-2"><em><span class="float-letter" data-letter="A" tabindex="0" role="button"
-                                    aria-label="Letra A interactiva"
-                                    style="--fa:-4px;--fd:-1s;--fs:4.2s;">A</span>nnerill <span class="float-letter"
-                                    data-letter="A" tabindex="0" role="button" aria-label="Letra A interactiva"
-                                    style="--fa:-5px;--fd:-3s;--fs:5s;">A</span>nabalón</em></span>
+                        <span class="line-1"><span class="nw"><span class="float-letter" data-letter="H" tabindex="0"
+                                    role="button" aria-label="Letra H interactiva"
+                                    style="--fa:-4px;--fd:-2s;--fs:4.5s;">H</span>ola</span>, soy</span>
+                        <span class="line-2"><em><span class="nw"><span class="float-letter" data-letter="A"
+                                        tabindex="0" role="button" aria-label="Letra A interactiva"
+                                        style="--fa:-4px;--fd:-1s;--fs:4.2s;">A</span>nnerill</span> <span
+                                    class="nw"><span class="float-letter" data-letter="A" tabindex="0" role="button"
+                                        aria-label="Letra A interactiva"
+                                        style="--fa:-5px;--fd:-3s;--fs:5s;">A</span>nabalón</span></em></span>
                     </h1>
-                    <p class="hero-lead"><span class="float-letter" data-letter="E" tabindex="0" role="button"
-                            aria-label="Letra E interactiva" style="--fa:-3.5px;--fd:-2s;--fs:3.6s;">E</span>gresada de
-                        Programación. Me gusta entender cómo funcionan las cosas y convertirlas en proyectos que se
-                        puedan usar. No todo sale a la primera: probar, equivocarme y corregir también son parte del
-                        proceso.</p>
-                    <p class="hero-hand">buscando mi pr<span class="float-letter" data-letter="A" tabindex="0"
-                            role="button" aria-label="Letra A interactiva"
-                            style="--fa:-4px;--fd:-2.5s;--fs:5s;">á</span>ctica profesional ✎</p>
+                    <p class="hero-lead" data-binary><span class="nw"><span class="float-letter" data-letter="E"
+                                tabindex="0" role="button" aria-label="Letra E interactiva"
+                                style="--fa:-3.5px;--fd:-2s;--fs:3.6s;">E</span>gresada</span> de Programación. Me gusta
+                        entender cómo funcionan las cosas y convertirlas en proyectos que se puedan usar. No todo sale
+                        a la primera: probar, equivocarme y corregir también son parte del proceso.</p>
+                    <p class="hero-hand">buscando mi <span class="nw">pr<span class="float-letter" data-letter="A"
+                                tabindex="0" role="button" aria-label="Letra A interactiva"
+                                style="--fa:-4px;--fd:-2.5s;--fs:5s;">á</span>ctica</span> profesional ✎</p>
                     <div class="hero-actions">
                         <a class="btn btn-primary" href="#proyectos">Ver proyectos <span aria-hidden="true">→</span></a>
                         <a class="btn btn-ghost" href="#sobre-mi">Conocer más <span aria-hidden="true">↘</span></a>
@@ -177,10 +193,11 @@
             </div>
 
             <blockquote class="hero-quote">
-                <p>“Si no lo entiendo, lo dibujo.<br>Si aún <span class="float-letter" data-letter="N" tabindex="0"
-                        role="button" aria-label="Letra N interactiva" style="--fa:-4px;--fd:-1.5s;--fs:4s;">n</span>o
-                    lo entiendo, lo program<span class="float-letter" data-letter="O" tabindex="0" role="button"
-                        aria-label="Letra O interactiva" style="--fa:-5px;--fd:-4s;--fs:4.6s;">o</span>.”</p>
+                <p>“Si no lo entiendo, lo dibujo.<br>Si aún <span class="nw"><span class="float-letter" data-letter="N"
+                            tabindex="0" role="button" aria-label="Letra N interactiva"
+                            style="--fa:-4px;--fd:-1.5s;--fs:4s;">n</span>o</span> lo entiendo, lo <span
+                        class="nw">program<span class="float-letter" data-letter="O" tabindex="0" role="button"
+                            aria-label="Letra O interactiva" style="--fa:-5px;--fd:-4s;--fs:4.6s;">o</span></span>.”</p>
                 <cite>— notas de trabajo</cite>
             </blockquote>
 
@@ -207,26 +224,28 @@
             <div class="about-grid">
                 <div class="about-heading" data-reveal>
                     <h2 id="about-title" class="display">
-                        <span><span class="float-letter" data-letter="U" tabindex="0" role="button"
-                                aria-label="Letra U interactiva" style="--fa:-4px;--fd:-2.5s;--fs:4.4s;">U</span>na
-                            cabeza</span>
-                        <span class="display-offset">que <em>no <span class="float-letter" data-letter="P" tabindex="0"
-                                    role="button" aria-label="Letra P interactiva"
-                                    style="--fa:-5px;--fd:-1s;--fs:5.2s;">p</span>ara</em></span>
+                        <span><span class="nw"><span class="float-letter" data-letter="U" tabindex="0" role="button"
+                                    aria-label="Letra U interactiva"
+                                    style="--fa:-4px;--fd:-2.5s;--fs:4.4s;">U</span>na</span> cabeza</span>
+                        <span class="display-offset">que <em>no <span class="nw"><span class="float-letter"
+                                        data-letter="P" tabindex="0" role="button" aria-label="Letra P interactiva"
+                                        style="--fa:-5px;--fd:-1s;--fs:5.2s;">p</span>ara</span></em></span>
                         <span>de preguntar.</span>
                     </h2>
                 </div>
                 <div class="about-body" data-reveal>
                     <p>Soy Annerill Anabalón, egresada de la Enseñanza Media Técnico-Profesional en Programación del
-                        Liceo Comercial <span class="float-letter" data-letter="V" tabindex="0" role="button"
-                            aria-label="Letra V interactiva" style="--fa:-4px;--fd:-2s;--fs:4.8s;">V</span>ate Vicente
-                        Huidobro, en Santiago de Chile. Estoy en proceso de práctica profesional y buscando mi primer
-                        trabajo formal en el área.</p>
+                        Liceo Comercial <span class="nw"><span class="float-letter" data-letter="V" tabindex="0"
+                                role="button" aria-label="Letra V interactiva"
+                                style="--fa:-4px;--fd:-2s;--fs:4.8s;">V</span>ate</span> Vicente Huidobro, en Santiago
+                        de Chile. Estoy en proceso de práctica profesional y buscando mi primer trabajo formal en el
+                        área.</p>
                     <p>No voy a decir que programar es entretenido todo el tiempo. Hay días en que algo no compila, el
-                        error no aparece donde <span class="float-letter" data-letter="U" tabindex="0" role="button"
-                            aria-label="Letra U interactiva" style="--fa:-4px;--fd:-1.5s;--fs:4.2s;">u</span>no espera
-                        y dan ganas de cerrar la pestaña. Pero vuelvo, leo con calma y cuando algo por fin funciona,
-                        entiendo por qué. Esa parte sí vale la pena.</p>
+                        error no aparece donde <span class="nw"><span class="float-letter" data-letter="U" tabindex="0"
+                                role="button" aria-label="Letra U interactiva"
+                                style="--fa:-4px;--fd:-1.5s;--fs:4.2s;">u</span>no</span> espera y dan ganas de cerrar
+                        la pestaña. Pero vuelvo, leo con calma y cuando algo por fin funciona, entiendo por qué. Esa
+                        parte sí vale la pena.</p>
                     <dl class="about-facts">
                         <div>
                             <dt>Estoy en</dt>
@@ -252,10 +271,10 @@
                             aria-label="Letra B oculta">B</button>
                         <button class="note-card" type="button" aria-expanded="false" data-expandable data-drag-reveal>
                             <span class="note-label">margen</span>
-                            <p>“Prefiero una pregunt<span class="float-letter" data-letter="A" tabindex="0"
-                                    role="button" aria-label="Letra A interactiva"
-                                    style="--fa:-4px;--fd:-1.5s;--fs:4.2s;">a</span>
-                                interesante a una respuesta que ya sabía.”</p>
+                            <p>“Prefiero una <span class="nw">pregunt<span class="float-letter" data-letter="A"
+                                        tabindex="0" role="button" aria-label="Letra A interactiva"
+                                        style="--fa:-4px;--fd:-1.5s;--fs:4.2s;">a</span></span> interesante a una
+                                respuesta que ya sabía.”</p>
                             <span class="note-extra"><span>Otra nota: el mejor código que he escrito nació de algo que
                                     no supe responder al principio.</span></span>
                         </button>
@@ -281,9 +300,10 @@
             <div class="section-marker" data-reveal><span class="marker-num">02</span><span class="marker-label">/
                     habilidades</span></div>
             <div class="skills-head" data-reveal>
-                <h2 id="skills-title" class="display">Herramientas<br><em>en la me<span class="float-letter"
-                            data-letter="S" tabindex="0" role="button" aria-label="Letra S interactiva"
-                            style="--fa:-4px;--fd:-2s;--fs:5s;">s</span>a.</em></h2>
+                <h2 id="skills-title" class="display">Herramientas<br><em>en la <span class="nw">me<span
+                                class="float-letter" data-letter="S" tabindex="0" role="button"
+                                aria-label="Letra S interactiva"
+                                style="--fa:-4px;--fd:-2s;--fs:5s;">s</span>a</span>.</em></h2>
                 <p class="skills-intro">Lo que uso para construir. Tocá cada tarjeta para ver en qué proyecto la estoy
                     usando. También podés arrastrar algunas para descubrir letras.</p>
             </div>
@@ -294,10 +314,10 @@
                         <summary><span class="skill-tag">frontend</span><span class="skill-name">HTML</span><span
                                 class="skill-toggle" aria-hidden="true">+</span></summary>
                         <div class="skill-body">
-                            <p><span class="float-letter" data-letter="E" tabindex="0" role="button"
-                                    aria-label="Letra E interactiva"
-                                    style="--fa:-4px;--fd:-2s;--fs:4.8s;">E</span>structura semántica, accesibilidad
-                                básica y formularios bien armados.</p>
+                            <p><span class="nw"><span class="float-letter" data-letter="E" tabindex="0" role="button"
+                                        aria-label="Letra E interactiva"
+                                        style="--fa:-4px;--fd:-2s;--fs:4.8s;">E</span>structura</span> semántica,
+                                accesibilidad básica y formularios bien armados.</p>
                         </div>
                     </details>
                 </div>
@@ -307,10 +327,10 @@
                         <summary><span class="skill-tag">frontend</span><span class="skill-name">CSS</span><span
                                 class="skill-toggle" aria-hidden="true">+</span></summary>
                         <div class="skill-body">
-                            <p>Grid, flexbox, <span class="float-letter" data-letter="V" tabindex="0" role="button"
-                                    aria-label="Letra V interactiva"
-                                    style="--fa:-4px;--fd:-2s;--fs:4.8s;">v</span>ariables, animaciones sutiles y
-                                diseño responsive.</p>
+                            <p>Grid, flexbox, <span class="nw"><span class="float-letter" data-letter="V" tabindex="0"
+                                        role="button" aria-label="Letra V interactiva"
+                                        style="--fa:-4px;--fd:-2s;--fs:4.8s;">v</span>ariables</span>, animaciones
+                                sutiles y diseño responsive.</p>
                         </div>
                     </details>
                 </div>
@@ -320,9 +340,10 @@
                         <summary><span class="skill-tag">frontend</span><span class="skill-name">JavaScript</span><span
                                 class="skill-toggle" aria-hidden="true">+</span></summary>
                         <div class="skill-body">
-                            <p>D<span class="float-letter" data-letter="O" tabindex="0" role="button"
-                                    aria-label="Letra O interactiva" style="--fa:-4px;--fd:-2s;--fs:4.8s;">O</span>M,
-                                eventos, filtros y lógica de interfaz.</p>
+                            <p><span class="nw">D<span class="float-letter" data-letter="O" tabindex="0" role="button"
+                                        aria-label="Letra O interactiva"
+                                        style="--fa:-4px;--fd:-2s;--fs:4.8s;">O</span>M</span>, eventos, filtros y
+                                lógica de interfaz.</p>
                         </div>
                     </details>
                 </div>
@@ -332,9 +353,10 @@
                         <summary><span class="skill-tag">backend</span><span class="skill-name">Python</span><span
                                 class="skill-toggle" aria-hidden="true">+</span></summary>
                         <div class="skill-body">
-                            <p>Lógica, funciones, <span class="float-letter" data-letter="M" tabindex="0" role="button"
-                                    aria-label="Letra M interactiva"
-                                    style="--fa:-4px;--fd:-2s;--fs:4.8s;">m</span>ódulos y estructura de proyectos.</p>
+                            <p>Lógica, funciones, <span class="nw"><span class="float-letter" data-letter="M"
+                                        tabindex="0" role="button" aria-label="Letra M interactiva"
+                                        style="--fa:-4px;--fd:-2s;--fs:4.8s;">m</span>ódulos</span> y estructura de
+                                proyectos.</p>
                         </div>
                     </details>
                 </div>
@@ -344,9 +366,10 @@
                         <summary><span class="skill-tag">backend</span><span class="skill-name">Flask</span><span
                                 class="skill-toggle" aria-hidden="true">+</span></summary>
                         <div class="skill-body">
-                            <p><span class="float-letter" data-letter="R" tabindex="0" role="button"
-                                    aria-label="Letra R interactiva" style="--fa:-4px;--fd:-2s;--fs:4.8s;">R</span>utas,
-                                templates, formularios y proyectos web con lógica de servidor.</p>
+                            <p><span class="nw"><span class="float-letter" data-letter="R" tabindex="0" role="button"
+                                        aria-label="Letra R interactiva"
+                                        style="--fa:-4px;--fd:-2s;--fs:4.8s;">R</span>utas</span>, templates,
+                                formularios y proyectos web con lógica de servidor.</p>
                         </div>
                     </details>
                 </div>
@@ -354,18 +377,20 @@
                     <summary><span class="skill-tag">backend</span><span class="skill-name">Jinja2</span><span
                             class="skill-toggle" aria-hidden="true">+</span></summary>
                     <div class="skill-body">
-                        <p><span class="float-letter" data-letter="T" tabindex="0" role="button"
-                                aria-label="Letra T interactiva" style="--fa:-4px;--fd:-2s;--fs:4.8s;">T</span>emplates
-                            con lógica, herencia de plantillas y datos dinámicos.</p>
+                        <p><span class="nw"><span class="float-letter" data-letter="T" tabindex="0" role="button"
+                                    aria-label="Letra T interactiva"
+                                    style="--fa:-4px;--fd:-2s;--fs:4.8s;">T</span>emplates</span> con lógica, herencia
+                            de plantillas y datos dinámicos.</p>
                     </div>
                 </details>
                 <details class="skill-card" data-reveal>
                     <summary><span class="skill-tag">datos</span><span class="skill-name">SQL / MySQL</span><span
                             class="skill-toggle" aria-hidden="true">+</span></summary>
                     <div class="skill-body">
-                        <p>Consultas, <span class="float-letter" data-letter="D" tabindex="0" role="button"
-                                aria-label="Letra D interactiva" style="--fa:-4px;--fd:-2s;--fs:4.8s;">d</span>iseño de
-                            bases relacionales, administración y mantenimiento de datos.</p>
+                        <p>Consultas, <span class="nw"><span class="float-letter" data-letter="D" tabindex="0"
+                                    role="button" aria-label="Letra D interactiva"
+                                    style="--fa:-4px;--fd:-2s;--fs:4.8s;">d</span>iseño</span> de bases relacionales,
+                            administración y mantenimiento de datos.</p>
                     </div>
                 </details>
                 <details class="skill-card" data-reveal>
@@ -380,37 +405,39 @@
                     <summary><span class="skill-tag">herramientas</span><span class="skill-name">Git</span><span
                             class="skill-toggle" aria-hidden="true">+</span></summary>
                     <div class="skill-body">
-                        <p>Con<span class="float-letter" data-letter="T" tabindex="0" role="button"
-                                aria-label="Letra T interactiva" style="--fa:-4px;--fd:-2s;--fs:4.8s;">t</span>rol de
-                            versiones, commits claros y ramas para probar ideas.</p>
+                        <p><span class="nw">Con<span class="float-letter" data-letter="T" tabindex="0" role="button"
+                                    aria-label="Letra T interactiva"
+                                    style="--fa:-4px;--fd:-2s;--fs:4.8s;">t</span>rol</span> de versiones, commits
+                            claros y ramas para probar ideas.</p>
                     </div>
                 </details>
                 <details class="skill-card" data-reveal>
                     <summary><span class="skill-tag">herramientas</span><span class="skill-name">GitHub</span><span
                             class="skill-toggle" aria-hidden="true">+</span></summary>
                     <div class="skill-body">
-                        <p><span class="float-letter" data-letter="R" tabindex="0" role="button"
-                                aria-label="Letra R interactiva"
-                                style="--fa:-4px;--fd:-2s;--fs:4.8s;">R</span>epositorios, issues y publicación con
-                            GitHub Pages.</p>
+                        <p><span class="nw"><span class="float-letter" data-letter="R" tabindex="0" role="button"
+                                    aria-label="Letra R interactiva"
+                                    style="--fa:-4px;--fd:-2s;--fs:4.8s;">R</span>epositorios</span>, issues y
+                            publicación con GitHub Pages.</p>
                     </div>
                 </details>
                 <details class="skill-card" data-reveal>
                     <summary><span class="skill-tag">sistemas</span><span class="skill-name">Redes LAN</span><span
                             class="skill-toggle" aria-hidden="true">+</span></summary>
                     <div class="skill-body">
-                        <p>Insta<span class="float-letter" data-letter="L" tabindex="0" role="button"
-                                aria-label="Letra L interactiva" style="--fa:-4px;--fd:-2s;--fs:4.8s;">l</span>ación y
-                            configuración de sistemas operativos e integración de equipos en red.</p>
+                        <p><span class="nw">Insta<span class="float-letter" data-letter="L" tabindex="0" role="button"
+                                    aria-label="Letra L interactiva"
+                                    style="--fa:-4px;--fd:-2s;--fs:4.8s;">l</span>ación</span> y configuración de
+                            sistemas operativos e integración de equipos en red.</p>
                     </div>
                 </details>
                 <details class="skill-card" data-reveal>
                     <summary><span class="skill-tag">soporte</span><span class="skill-name">Soporte técnico</span><span
                             class="skill-toggle" aria-hidden="true">+</span></summary>
                     <div class="skill-body">
-                        <p>Diagnóstico de problemas, mantenimiento y ate<span class="float-letter" data-letter="N"
-                                tabindex="0" role="button" aria-label="Letra N interactiva"
-                                style="--fa:-4px;--fd:-2s;--fs:4.8s;">n</span>ción a usuarios.</p>
+                        <p>Diagnóstico de problemas, mantenimiento y <span class="nw">ate<span class="float-letter"
+                                    data-letter="N" tabindex="0" role="button" aria-label="Letra N interactiva"
+                                    style="--fa:-4px;--fd:-2s;--fs:4.8s;">n</span>ción</span> a usuarios.</p>
                     </div>
                 </details>
             </div>
@@ -420,9 +447,10 @@
             <div class="section-marker" data-reveal><span class="marker-num">03</span><span class="marker-label">/
                     proyectos</span></div>
             <div class="projects-head" data-reveal>
-                <h2 id="projects-title" class="display"><span class="float-letter" data-letter="C" tabindex="0"
-                        role="button" aria-label="Letra C interactiva"
-                        style="--fa:-4px;--fd:-2s;--fs:4.8s;">C</span>osas que<br><em>construí</em> probando.</h2>
+                <h2 id="projects-title" class="display"><span class="nw"><span class="float-letter" data-letter="C"
+                            tabindex="0" role="button" aria-label="Letra C interactiva"
+                            style="--fa:-4px;--fd:-2s;--fs:4.8s;">C</span>osas</span> que<br><em>construí</em>
+                    probando.</h2>
                 <p class="projects-intro">Proyectos personales, académicos y espacios reservados. Cada ficha indica el
                     estado real.</p>
             </div>
@@ -444,9 +472,12 @@
                             aria-label="Letra S oculta">S</button>
                         <button class="project-media" data-drag-reveal type="button"
                             aria-label="Ver detalle de PolitiCore">
+                            <video class="project-bg project-bg--video" src="assets/videos/politicore.mp4" autoplay
+                                muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>
                             <span class="project-num">01</span><span class="project-expand" aria-hidden="true">⤢</span>
-                            <img class="project-img" src="static/img/politicore.png" alt="">
-                            <span class="project-image-note">[ captura de PolitiCore ]</span>
+                            <video class="project-img project-video" src="assets/videos/politicore.mp4" autoplay muted
+                                loop playsinline preload="metadata" aria-label="Video de PolitiCore"></video>
+                            <span class="project-image-note">[ video de PolitiCore ]</span>
                             <span class="wet-layer" aria-hidden="true"></span>
                         </button>
                     </div>
@@ -454,14 +485,17 @@
                         <h3>PolitiCore</h3>
                         <p class="project-type">educación cívica · en desarrollo</p>
                     </header>
-                    <p class="project-desc">Plataforma de educación cívica para jóvenes de 14 a 24 años en Chile.
-                        Explicaciones en lenguaje simple, contenido visual y actividades interactivas para entender
-                        cómo funciona el Estado. El prototipo actual sienta la base; varias secciones siguen en
-                        desarrollo.</p>
+                    <p class="project-desc"><span class="nw">Herramien<span class="float-letter" data-letter="T"
+                                tabindex="0" role="button" aria-label="Letra T interactiva"
+                                style="--fa:-4px;--fd:-2s;--fs:4.6s;">t</span>a</span> de educación cívica pensada para
+                        jóvenes de 14 a 24 años en Chile. Explicaciones en lenguaje simple, contenido visual y
+                        actividades interactivas para entender cómo funciona el Estado.</p>
                     <ul class="project-tech">
                         <li>Python</li>
                         <li>Flask</li>
-                        <li>Jinja2</li>
+                        <li><span class="nw"><span class="float-letter" data-letter="J" tabindex="0" role="button"
+                                    aria-label="Letra J interactiva"
+                                    style="--fa:-4px;--fd:-2s;--fs:4.6s;">J</span>inja2</span></li>
                         <li>SQL</li>
                         <li>HTML / CSS</li>
                     </ul>
@@ -481,8 +515,9 @@
                             aria-label="Letra N oculta">N</button>
                         <button class="project-media" data-drag-reveal type="button"
                             aria-label="Ver detalle de NidoDePeluches">
+                            <span class="project-bg" aria-hidden="true"></span>
                             <span class="project-num">02</span><span class="project-expand" aria-hidden="true">⤢</span>
-                            <img class="project-img" src="static/img/nido_de_peluches.png" alt="">
+                            <img class="project-img" src="static/img/donacion_peluches.png" alt="">
                             <span class="project-image-note">[ captura de NidoDePeluches ]</span>
                             <span class="wet-layer" aria-hidden="true"></span>
                         </button>
@@ -509,6 +544,43 @@
                     </div>
                 </article>
 
+                <article class="project-card" data-category="web backend academico" data-size="medium"
+                    data-project-id="forestguard" data-reveal
+                    data-modal-desc="ForestGuard AI es un proyecto de monitoreo IoT que busca detectar tempranamente condiciones ambientales asociadas al riesgo de incendios forestales. Utiliza estaciones basadas en ESP32, sensores de temperatura y humedad DHT22 y sensores MQ-2 para humo o gases combustibles. El microcontrolador procesa las lecturas, indica el estado mediante LED y envía información por Wi-Fi a una plataforma web desarrollada con Flask y MySQL. La plataforma muestra mediciones, estados, alertas y ubicaciones de las estaciones. También contempla un juego educativo de estrategia."
+                    data-modal-features="Estaciones IoT con ESP32|Sensores DHT22 (temperatura y humedad)|Sensor MQ-2 (humo y gases combustibles)|Indicador LED de estado|Comunicación Wi-Fi|Plataforma Flask + MySQL|Mediciones, estados, alertas y ubicaciones|Juego educativo de estrategia">
+                    <div class="drag-wrap">
+                        <button class="letter letter--hidden" data-letter="Y" inert
+                            aria-label="Letra Y oculta">Y</button>
+                        <button class="project-media" data-drag-reveal type="button"
+                            aria-label="Ver detalle de ForestGuard">
+                            <span class="project-bg" aria-hidden="true"></span>
+                            <span class="project-num">03</span><span class="project-expand" aria-hidden="true">⤢</span>
+                            <img class="project-img" src="static/img/forestguard.png" alt="">
+                            <span class="project-image-note">[ captura de ForestGuard ]</span>
+                            <span class="wet-layer" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <header class="project-head">
+                        <h3>ForestGuard</h3>
+                        <p class="project-type">monitoreo IoT · proyecto académico</p>
+                    </header>
+                    <p class="project-desc">Sistema de monitoreo IoT para detectar condiciones de riesgo de incendios
+                        forestales. Estaciones con ESP32, sensores DHT22 y MQ-2 envían datos por Wi-Fi a una plataforma
+                        Flask + MySQL. Incluye panel de mediciones, alertas y un juego educativo de estrategia.</p>
+                    <ul class="project-tech">
+                        <li>ESP32</li>
+                        <li>DHT22</li>
+                        <li>MQ-2</li>
+                        <li>Wi-Fi</li>
+                        <li>Python</li>
+                        <li>Flask</li>
+                        <li>MySQL</li>
+                    </ul>
+                    <div class="project-links">
+                        <a href="https://github.com/AnniMillara" target="_blank" rel="noopener">Repositorio ↗</a>
+                    </div>
+                </article>
+
                 <article class="project-card" data-category="web backend" data-size="medium"
                     data-project-id="querido-diario" data-reveal
                     data-modal-desc="Querido Diario es una aplicación web de diario personal con cuentas de usuario y entradas privadas. Cada persona se registra, inicia sesión y gestiona sus propias entradas: crear, ver, editar y eliminar. Incluye un buscador dinámico que filtra mientras el usuario escribe y asegura que cada cuenta acceda únicamente a sus propios datos. Forma parte del recorrido de la certificación Full Stack (en curso)."
@@ -518,7 +590,8 @@
                             aria-label="Letra Q oculta">Q</button>
                         <button class="project-media media-terracotta" data-drag-reveal type="button"
                             aria-label="Ver detalle de Querido Diario">
-                            <span class="project-num">03</span><span class="project-expand" aria-hidden="true">⤢</span>
+                            <span class="project-bg" aria-hidden="true"></span>
+                            <span class="project-num">04</span><span class="project-expand" aria-hidden="true">⤢</span>
                             <img class="project-img" src="static/img/querido_diario.png" alt="">
                             <span class="project-image-note">[ captura de Querido Diario ]</span>
                             <span class="wet-layer" aria-hidden="true"></span>
@@ -526,7 +599,9 @@
                     </div>
                     <header class="project-head">
                         <h3>Querido Diario</h3>
-                        <p class="project-type">web con cuentas · formación</p>
+                        <p class="project-type"><span class="nw"><span class="float-letter" data-letter="W" tabindex="0"
+                                    role="button" aria-label="Letra W interactiva"
+                                    style="--fa:-4px;--fd:-2s;--fs:4.4s;">w</span>eb</span> con cuentas · formación</p>
                     </header>
                     <p class="project-desc">Diario personal con cuentas y entradas privadas. Cada usuario se registra,
                         inicia sesión y gestiona sus propias entradas con buscador dinámico. La persistencia y el
@@ -553,7 +628,8 @@
                             aria-label="Letra C oculta">C</button>
                         <button class="project-media media-moss" data-drag-reveal type="button"
                             aria-label="Ver detalle de Cinepedia">
-                            <span class="project-num">04</span><span class="project-expand" aria-hidden="true">⤢</span>
+                            <span class="project-bg" aria-hidden="true"></span>
+                            <span class="project-num">05</span><span class="project-expand" aria-hidden="true">⤢</span>
                             <img class="project-img" src="static/img/cinepedia.png" alt="">
                             <span class="project-image-note">[ captura de Cinepedia ]</span>
                             <span class="wet-layer" aria-hidden="true"></span>
@@ -587,7 +663,8 @@
                             aria-label="Letra T oculta">T</button>
                         <button class="project-media media-caramel" data-drag-reveal type="button"
                             aria-label="Ver detalle de Aplicaciones web con BD">
-                            <span class="project-num">05</span><span class="project-expand" aria-hidden="true">⤢</span>
+                            <span class="project-bg" aria-hidden="true"></span>
+                            <span class="project-num">06</span><span class="project-expand" aria-hidden="true">⤢</span>
                             <img class="project-img" src="static/img/aplicaciones_bd.png" alt="">
                             <span class="project-image-note">[ apps con bases de datos ]</span>
                             <span class="wet-layer" aria-hidden="true"></span>
@@ -618,7 +695,8 @@
                     data-modal-features="Ensamblado de equipos|Mantenimiento preventivo|Instalación de sistemas operativos|Configuración de redes LAN|Diagnóstico y registro de fallas">
                     <button class="project-media media-olive" type="button"
                         aria-label="Ver detalle de Laboratorio y soporte">
-                        <span class="project-num">06</span><span class="project-expand" aria-hidden="true">⤢</span>
+                        <span class="project-bg" aria-hidden="true"></span>
+                        <span class="project-num">07</span><span class="project-expand" aria-hidden="true">⤢</span>
                         <img class="project-img" src="static/img/laboratorio_soporte.png" alt="">
                         <span class="project-image-note">[ laboratorio informático ]</span>
                         <span class="wet-layer" aria-hidden="true"></span>
@@ -646,7 +724,7 @@
                     data-modal-desc="Espacio reservado para el siguiente proyecto. Se completará cuando el trabajo esté en marcha, no antes."
                     data-modal-features="">
                     <button class="project-media" type="button" aria-label="Ver detalle del próximo experimento">
-                        <span class="project-num">07</span><span class="project-expand" aria-hidden="true">⤢</span>
+                        <span class="project-num">08</span><span class="project-expand" aria-hidden="true">⤢</span>
                         <span class="project-image-note">[ espacio reservado · pendiente ]</span>
                         <span class="wet-layer" aria-hidden="true"></span>
                     </button>
@@ -670,18 +748,20 @@
             <div class="section-marker" data-reveal><span class="marker-num">04</span><span class="marker-label">/
                     formación y proceso</span></div>
             <div class="process-head" data-reveal>
-                <h2 id="process-title" class="display">Cómo <span class="float-letter" data-letter="A" tabindex="0"
-                        role="button" aria-label="Letra A interactiva"
-                        style="--fa:-4px;--fd:-2s;--fs:4.8s;">a</span>prendo<br><em>(y otras notas).</em></h2>
+                <h2 id="process-title" class="display">Cómo <span class="nw"><span class="float-letter" data-letter="A"
+                            tabindex="0" role="button" aria-label="Letra A interactiva"
+                            style="--fa:-4px;--fd:-2s;--fs:4.8s;">a</span>prendo</span><br><em>(y otras notas).</em>
+                </h2>
                 <p class="process-intro">Un recorrido por la formación formal y el aprendizaje autodidacta. Cada etapa
                     suma.</p>
             </div>
             <div class="formation-feature" data-reveal>
                 <div class="formation-badge">formación</div>
                 <h3>Liceo Comercial Vate Vicente Huidobro</h3>
-                <p class="formation-meta">Santiago, Chile · Enseñanza Media Técnico-Profesional en Pro<span
-                        class="float-letter" data-letter="G" tabindex="0" role="button" aria-label="Letra G interactiva"
-                        style="--fa:-4px;--fd:-2s;--fs:4.6s;">g</span>ramación · 2023 – 2026</p>
+                <p class="formation-meta">Santiago, Chile · Enseñanza Media Técnico-Profesional en <span
+                        class="nw">Pro<span class="float-letter" data-letter="G" tabindex="0" role="button"
+                            aria-label="Letra G interactiva"
+                            style="--fa:-4px;--fd:-2s;--fs:4.6s;">g</span>ramación</span> · 2023 – 2026</p>
                 <p class="formation-status">Egresada de 4.º Medio · en proceso de práctica profesional</p>
             </div>
             <div class="modules-grid" data-reveal>
@@ -711,12 +791,12 @@
                 <li class="timeline-item" data-reveal>
                     <span class="timeline-date">2023 — 2024</span>
                     <div class="timeline-body">
-                        <h3><span class="float-letter" data-letter="F" tabindex="0" role="button"
-                                aria-label="Letra F interactiva" style="--fa:-4px;--fd:-2s;--fs:4.6s;">F</span>ormación
-                            escolar</h3>
-                        <p>Inicio y continuidad de la Enseñanza Me<span class="float-letter" data-letter="D"
-                                tabindex="0" role="button" aria-label="Letra D interactiva"
-                                style="--fa:-4px;--fd:-3s;--fs:4.6s;">d</span>ia.</p>
+                        <h3><span class="nw"><span class="float-letter" data-letter="F" tabindex="0" role="button"
+                                    aria-label="Letra F interactiva"
+                                    style="--fa:-4px;--fd:-2s;--fs:4.6s;">F</span>ormación</span> escolar</h3>
+                        <p>Inicio y continuidad de la Enseñanza <span class="nw">Me<span class="float-letter"
+                                    data-letter="D" tabindex="0" role="button" aria-label="Letra D interactiva"
+                                    style="--fa:-4px;--fd:-3s;--fs:4.6s;">d</span>ia</span>.</p>
                         <div class="timeline-tags"><span>Enseñanza Media</span></div>
                     </div>
                 </li>
@@ -751,10 +831,12 @@
             <div class="section-marker" data-reveal><span class="marker-num">05</span><span class="marker-label">/
                     certificaciones</span></div>
             <div class="certs-head" data-reveal>
-                <h2 id="certs-title" class="display"><span class="float-letter" data-letter="C" tabindex="0"
-                        role="button" aria-label="Letra C interactiva"
-                        style="--fa:-4px;--fd:-2s;--fs:4.8s;">C</span>onstancias<br><em>recientes.</em></h2>
-                <p class="certs-intro">Formación complementaria obtenida fuera del liceo.</p>
+                <h2 id="certs-title" class="display"><span class="nw"><span class="float-letter" data-letter="C"
+                            tabindex="0" role="button" aria-label="Letra C interactiva"
+                            style="--fa:-4px;--fd:-2s;--fs:4.8s;">C</span>onstancias</span><br><em>recientes.</em></h2>
+                <p class="certs-intro">Formación compl<span class="float-letter" data-letter="E" tabindex="0"
+                        role="button" aria-label="Letra E interactiva"
+                        style="--fa:-4px;--fd:-1.5s;--fs:4.4s;">e</span>mentaria obtenida fuera del liceo.</p>
             </div>
             <div class="certs-grid">
                 <div class="drag-wrap">
@@ -764,13 +846,17 @@
                         target="_blank" rel="noopener" data-reveal>
                         <span class="cert-badge" aria-hidden="true">✓</span>
                         <h3>Certificación Front-End</h3>
-                        <p class="cert-issuer">Skillnest</p>
+                        <p class="cert-issuer"><span class="nw">S<span class="float-letter" data-letter="K" tabindex="0"
+                                    role="button" aria-label="Letra K interactiva"
+                                    style="--fa:-4px;--fd:-2s;--fs:4.4s;">k</span>illnest</span></p>
                         <span class="cert-link">Ver certificado ↗</span>
                     </a>
                 </div>
                 <div class="cert-card cert-pending" data-reveal>
                     <span class="cert-badge" aria-hidden="true">⏳</span>
-                    <h3>Certificación Fullstack</h3>
+                    <h3><span class="nw">Fullst<span class="float-letter" data-letter="A" tabindex="0" role="button"
+                                aria-label="Letra A interactiva" style="--fa:-4px;--fd:-3s;--fs:4.4s;">a</span>ck</span>
+                    </h3>
                     <p class="cert-issuer">Skillnest · en proceso</p>
                     <span class="cert-link cert-pending-label">Pendiente de finalizar</span>
                 </div>
@@ -782,16 +868,19 @@
                     video</span></div>
             <div class="video-grid">
                 <div class="video-copy" data-reveal>
-                    <h2 id="video-title" class="display">Un <span class="float-letter" data-letter="M" tabindex="0"
-                            role="button" aria-label="Letra M interactiva"
-                            style="--fa:-4px;--fd:-2s;--fs:4.6s;">m</span>inuto<br><em>en movimi<span
-                                class="float-letter" data-letter="E" tabindex="0" role="button"
-                                aria-label="Letra E interactiva" style="--fa:-4px;--fd:-3s;--fs:4.6s;">e</span>nto.</em>
-                    </h2>
-                    <p>Espacio reser<span class="float-letter" data-letter="V" tabindex="0" role="button"
-                            aria-label="Letra V interactiva" style="--fa:-4px;--fd:-1.5s;--fs:4.6s;">v</span>ado para
-                        una presentación breve.</p>
-                    <p class="video-caption">— formato: 60 s</p>
+                    <h2 id="video-title" class="display">Un <span class="nw"><span class="float-letter" data-letter="M"
+                                tabindex="0" role="button" aria-label="Letra M interactiva"
+                                style="--fa:-4px;--fd:-2s;--fs:4.6s;">m</span>inuto</span><br><em>en <span
+                                class="nw">movimi<span class="float-letter" data-letter="E" tabindex="0" role="button"
+                                    aria-label="Letra E interactiva"
+                                    style="--fa:-4px;--fd:-3s;--fs:4.6s;">e</span>nto</span>.</em></h2>
+                    <p>Espacio <span class="nw">reser<span class="float-letter" data-letter="V" tabindex="0"
+                                role="button" aria-label="Letra V interactiva"
+                                style="--fa:-4px;--fd:-1.5s;--fs:4.6s;">v</span>ado</span> para una presentación breve.
+                    </p>
+                    <p class="video-caption">— formato: 60 s · <span class="nw">subtítu<span class="float-letter"
+                                data-letter="L" tabindex="0" role="button" aria-label="Letra L interactiva"
+                                style="--fa:-4px;--fd:-2.5s;--fs:4.4s;">l</span>os</span> en español</p>
                 </div>
                 <div class="video-frame" data-reveal>
                     <div class="video-inner">
@@ -816,14 +905,20 @@
                     contacto</span></div>
             <div class="contact-grid">
                 <div class="contact-copy" data-reveal>
-                    <h2 id="contact-title" class="display">¿<span class="float-letter" data-letter="C" tabindex="0"
-                            role="button" aria-label="Letra C interactiva"
-                            style="--fa:-4px;--fd:-1.5s;--fs:4.8s;">C</span>harlamos<br><em>un rato?</em></h2>
-                    <p>Si tenés una idea, una pregunta o ganas de compar<span class="float-letter" data-letter="R"
-                            tabindex="0" role="button" aria-label="Letra R interactiva"
-                            style="--fa:-4px;--fd:-3s;--fs:4.6s;">r</span>tir un proyecto, me encontrás por acá.</p>
-                    <div class="contact-availability"><span class="availability-dot"
-                            aria-hidden="true"></span>Disponible para práctica profesional</div>
+                    <h2 id="contact-title" class="display">¿<span class="nw"><span class="float-letter" data-letter="C"
+                                tabindex="0" role="button" aria-label="Letra C interactiva"
+                                style="--fa:-4px;--fd:-1.5s;--fs:4.8s;">C</span>harla</span>mos<br><em>un rato?</em>
+                    </h2>
+                    <p>Si tenés una idea, una pregunta o ganas de <span class="nw">compa<span class="float-letter"
+                                data-letter="R" tabindex="0" role="button" aria-label="Letra R interactiva"
+                                style="--fa:-4px;--fd:-3s;--fs:4.6s;">r</span>tir</span> un proyecto, me encontrás por
+                        acá.</p>
+                    <div class="contact-availability">
+                        <span class="availability-dot" aria-hidden="true"></span>
+                        <span class="nw">Disponible para prác<span class="float-letter" data-letter="T" tabindex="0"
+                                role="button" aria-label="Letra T interactiva"
+                                style="--fa:-4px;--fd:-2s;--fs:4.4s;">t</span>ica profesional</span>
+                    </div>
                 </div>
                 <ul class="contact-list" data-reveal>
                     <li><span class="contact-label">correo</span><a
@@ -840,7 +935,12 @@
     </main>
 
     <footer class="site-footer">
-        <p>Hecho con curiosidad, café y varios intentos · <span data-year>2026</span></p>
+        <p>Hecho con <span class="nw">cur<span class="float-letter" data-letter="I" tabindex="0" role="button"
+                    aria-label="Letra I interactiva" style="--fa:-4px;--fd:-2s;--fs:4.8s;">i</span>osidad</span>,
+            c<span class="float-letter" data-letter="A" tabindex="0" role="button" aria-label="Letra A interactiva"
+                style="--fa:-4px;--fd:-1.5s;--fs:4.4s;">a</span>fé y v<span class="float-letter" data-letter="R"
+                tabindex="0" role="button" aria-label="Letra R interactiva"
+                style="--fa:-4px;--fd:-3s;--fs:4.6s;">a</span>rios intentos · <span data-year>2026</span></p>
         <a href="#inicio">Volver arriba ↑</a>
     </footer>
 
@@ -871,6 +971,7 @@
             <div class="secrets-filters" role="group" aria-label="Filtrar por categoría">
                 <button class="secrets-filter is-active" type="button" data-cat="all">Todas</button>
                 <button class="secrets-filter" type="button" data-cat="naturaleza">Naturaleza</button>
+                <button class="secrets-filter" type="button" data-cat="estaciones">Estaciones</button>
                 <button class="secrets-filter" type="button" data-cat="universo">Universo</button>
                 <button class="secrets-filter" type="button" data-cat="tecnologia">Tecnología</button>
                 <button class="secrets-filter" type="button" data-cat="animales">Animales</button>
@@ -923,13 +1024,6 @@
             style="--x:16%;--d:13s;--delay:-10s;">fn()</span><span
             style="--x:64%;--d:9s;--delay:-3s;">return</span><span
             style="--x:34%;--d:11s;--delay:-7s;">const</span><span style="--x:80%;--d:8s;--delay:-9s;">async</span>
-        <span style="--x:12%;--d:14s;--delay:-11s;">&lt;h1&gt;Annerill&lt;/h1&gt;</span><span
-            style="--x:48%;--d:15s;--delay:-13s;">def main()</span><span style="--x:86%;--d:10s;--delay:-8s;">SELECT
-            *</span>
-    </div>
-
-    <div class="fx fx-clouds" aria-hidden="true">
-        <div class="cloud-layer"></div>
     </div>
 
     <div class="fx fx-galaxy" aria-hidden="true">
@@ -945,6 +1039,14 @@
     </div>
 
     <div class="fx fx-tornado" aria-hidden="true"></div>
+    <div class="fx fx-primavera" aria-hidden="true"></div>
+    <div class="fx fx-invierno" aria-hidden="true"></div>
+    <div class="fx fx-otono" aria-hidden="true"></div>
+    <div class="fx fx-verano" aria-hidden="true"></div>
+    <div class="fx fx-agujero" aria-hidden="true">
+        <div class="black-hole-core"></div>
+        <div class="black-hole-ring"></div>
+    </div>
 
     <div class="shimeji shimeji--cuervo" data-animal="cuervo" hidden>
         <img class="shimeji-sprite" src="assets/cuervo/cuervo_parado.png" alt="" aria-hidden="true">
