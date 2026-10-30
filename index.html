@@ -14,8 +14,23 @@
         href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700;9..144,900&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@500;700&display=swap"
         rel="stylesheet">
     <script>document.documentElement.classList.add('js');</script>
+
     <link rel="stylesheet" href="static/css/style.css">
-    <script defer src="static/js/script.js"></script>
+    <link rel="stylesheet" href="static/css/themes.css">
+    <link rel="stylesheet" href="static/css/effects.css">
+    <link rel="stylesheet" href="static/css/animations.css">
+    <link rel="stylesheet" href="static/css/responsive.css">
+
+    <script defer src="static/js/config.js"></script>
+    <script defer src="static/js/audio.js"></script>
+    <script defer src="static/js/black-hole.js"></script>
+    <script defer src="static/js/effects.js"></script>
+    <script defer src="static/js/secret-words.js"></script>
+    <script defer src="static/js/stars.js"></script>
+    <script defer src="static/js/bug.js"></script>
+    <script defer src="static/js/effects-extra.js"></script>
+    <script defer src="static/js/interactions.js"></script>
+    <script defer src="static/js/main.js"></script>
 </head>
 
 <body>
@@ -88,6 +103,22 @@
                 </svg>
                 <span class="secrets-count" id="secrets-count">0/0</span>
             </button>
+            <nav class="lang-switch" aria-label="Idioma">
+                <a href="index.html" aria-current="true" lang="es">ES</a>
+                <a href="index_en.html" lang="en">EN</a>
+            </nav>
+            <button class="audio-toggle" type="button" aria-pressed="true" aria-label="Silenciar audio ambiental"
+                title="Silenciar audio">
+                <svg class="icon-unmuted" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 9v6h4l5 4V5L8 9H4z" />
+                    <path d="M16 9a4 4 0 0 1 0 6" />
+                    <path d="M19 6a8 8 0 0 1 0 12" />
+                </svg>
+                <svg class="icon-muted" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 9v6h4l5 4V5L8 9H4z" />
+                    <path d="M22 9l-6 6M16 9l6 6" />
+                </svg>
+            </button>
             <button class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="12" cy="12" r="4" />
@@ -145,8 +176,8 @@
                     <p class="hero-lead" data-binary><span class="nw"><span class="float-letter" data-letter="E"
                                 tabindex="0" role="button" aria-label="Letra E interactiva"
                                 style="--fa:-3.5px;--fd:-2s;--fs:3.6s;">E</span>gresada</span> de Programación. Me gusta
-                        entender cómo funcionan las cosas y convertirlas en proyectos que se puedan usar. No todo sale
-                        a la primera: probar, equivocarme y corregir también son parte del proceso.</p>
+                        entender cómo funcionan las cosas y convertirlas en proyectos que se puedan usar. No todo sale a
+                        la primera: probar, equivocarme y corregir también son parte del proceso.</p>
                     <p class="hero-hand">buscando mi <span class="nw">pr<span class="float-letter" data-letter="A"
                                 tabindex="0" role="button" aria-label="Letra A interactiva"
                                 style="--fa:-4px;--fd:-2.5s;--fs:5s;">á</span>ctica</span> profesional ✎</p>
@@ -165,14 +196,15 @@
                                     <span class="photo-corner-deco" aria-hidden="true">✳</span>
                                     <img class="hero-photo-img" src="static/img/perfil_annerill.jpg"
                                         alt="Retrato de Annerill Anabalón">
-                                    <span class="photo-placeholder" aria-hidden="true">retrato</span>
+                                    <span class="photo-placeholder" aria-hidden="true">"¡Es la palabra más alegre que
+                                        jamás hayas oído!"</span>
                                 </div>
                                 <span class="wet-layer" aria-hidden="true"></span>
                             </div>
                             <div class="frame-face frame-back">
                                 <span class="frame-back-label">reverso</span>
-                                <p class="frame-back-text">Empecé dibujando diagramas en el margen de un cuaderno.
-                                    Sigo haciendo lo mismo —ahora en código, con la misma curiosidad.</p>
+                                <p class="frame-back-text">Empecé dibujando diagramas en el margen de un cuaderno. Sigo
+                                    haciendo lo mismo —ahora en código, con la misma curiosidad.</p>
                                 <span class="frame-back-hint" aria-hidden="true">✳</span>
                                 <button class="letter letter--hidden letter--back" data-letter="I" inert
                                     aria-label="Letra I oculta">I</button>
@@ -193,11 +225,11 @@
             </div>
 
             <blockquote class="hero-quote">
-                <p>“Si no lo entiendo, lo dibujo.<br>Si aún <span class="nw"><span class="float-letter" data-letter="N"
+                <p>"Si no lo entiendo, lo dibujo.<br>Si aún <span class="nw"><span class="float-letter" data-letter="N"
                             tabindex="0" role="button" aria-label="Letra N interactiva"
                             style="--fa:-4px;--fd:-1.5s;--fs:4s;">n</span>o</span> lo entiendo, lo <span
                         class="nw">program<span class="float-letter" data-letter="O" tabindex="0" role="button"
-                            aria-label="Letra O interactiva" style="--fa:-5px;--fd:-4s;--fs:4.6s;">o</span></span>.”</p>
+                            aria-label="Letra O interactiva" style="--fa:-5px;--fd:-4s;--fs:4.6s;">o</span></span>."</p>
                 <cite>— notas de trabajo</cite>
             </blockquote>
 
@@ -206,13 +238,8 @@
             <div class="stars-controls">
                 <button class="stars-reset" type="button" aria-label="Reiniciar estrellas"
                     title="Reiniciar estrellas"><span aria-hidden="true">↺</span></button>
-                <button class="constellation-check" type="button" hidden aria-label="Verificar letra"><span
-                        aria-hidden="true">✓</span> verificar letra</button>
-                <button class="constellation-clear" type="button" hidden aria-label="Limpiar conexiones"><span
-                        aria-hidden="true">×</span> limpiar</button>
                 <div class="stars-hint" role="status" hidden>
-                    <span>Tocá una estrella y conectala con otra · formá letras · arrastrá para revelar letras
-                        ocultas</span>
+                    <span>Arrastrá una estrella para revelar letras ocultas · juntalas en la bandeja</span>
                     <button class="stars-hint-close" type="button" aria-label="Cerrar aviso">×</button>
                 </div>
             </div>
@@ -271,10 +298,10 @@
                             aria-label="Letra B oculta">B</button>
                         <button class="note-card" type="button" aria-expanded="false" data-expandable data-drag-reveal>
                             <span class="note-label">margen</span>
-                            <p>“Prefiero una <span class="nw">pregunt<span class="float-letter" data-letter="A"
+                            <p>"Prefiero una <span class="nw">pregunt<span class="float-letter" data-letter="A"
                                         tabindex="0" role="button" aria-label="Letra A interactiva"
                                         style="--fa:-4px;--fd:-1.5s;--fs:4.2s;">a</span></span> interesante a una
-                                respuesta que ya sabía.”</p>
+                                respuesta que ya sabía."</p>
                             <span class="note-extra"><span>Otra nota: el mejor código que he escrito nació de algo que
                                     no supe responder al principio.</span></span>
                         </button>
@@ -449,8 +476,8 @@
             <div class="projects-head" data-reveal>
                 <h2 id="projects-title" class="display"><span class="nw"><span class="float-letter" data-letter="C"
                             tabindex="0" role="button" aria-label="Letra C interactiva"
-                            style="--fa:-4px;--fd:-2s;--fs:4.8s;">C</span>osas</span> que<br><em>construí</em>
-                    probando.</h2>
+                            style="--fa:-4px;--fd:-2s;--fs:4.8s;">C</span>osas</span> que<br><em>construí</em> probando.
+                </h2>
                 <p class="projects-intro">Proyectos personales, académicos y espacios reservados. Cada ficha indica el
                     estado real.</p>
             </div>
@@ -500,7 +527,8 @@
                         <li>HTML / CSS</li>
                     </ul>
                     <div class="project-links">
-                        <a href="https://github.com/AnniMillara/PrototipoWebPoliticore--" target="_blank" rel="noopener">Repositorio ↗</a>
+                        <a href="https://github.com/AnniMillara/PrototipoWebPoliticore--" target="_blank"
+                            rel="noopener">Repositorio ↗</a>
                         <a href="https://prototipowebpoliticore.onrender.com" target="_blank" rel="noopener">Prototipo
                             ↗</a>
                     </div>
@@ -508,7 +536,7 @@
 
                 <article class="project-card" data-category="web backend" data-size="medium" data-project-id="nido"
                     data-reveal
-                    data-modal-desc="NidoDePeluches es una aplicación web centrada en la donación y adopción de peluches. Permite publicar peluches que se quieren donar y que otras personas los descubran y puedan adoptarlos. Incluye cuentas de usuario, autenticación, gestión de publicaciones propias, un flujo de adopción y registro de visitas a cada publicación. Es un proyecto de desarrollo web y aprendizaje práctico; las funcionalidades descritas están implementadas en la versión actual del código."
+                    data-modal-desc="NidoDePeluches es una aplicación web centrada en la donación y adopción de peluches. Permite publicar peluches que se quieren donar y que otras personas los descubran y puedan adoptarlos. Incluye cuentas de usuario, autenticación, gestión de publicaciones propias, un flujo de adopción y registro de visitas a cada publicación."
                     data-modal-features="Registro e inicio de sesión con Bcrypt|Protección CSRF con CSRFProtect|Publicación de peluches|Edición de publicaciones propias|Flujo de adopción|Registro de visitas por publicación|MySQL con PyMySQL">
                     <div class="drag-wrap">
                         <button class="letter letter--hidden" data-letter="N" inert
@@ -546,8 +574,8 @@
 
                 <article class="project-card" data-category="web backend academico" data-size="medium"
                     data-project-id="forestguard" data-reveal
-                    data-modal-desc="ForestGuard AI es un proyecto de monitoreo IoT que busca detectar tempranamente condiciones ambientales asociadas al riesgo de incendios forestales. Utiliza estaciones basadas en ESP32, sensores de temperatura y humedad DHT22 y sensores MQ-2 para humo o gases combustibles. El microcontrolador procesa las lecturas, indica el estado mediante LED y envía información por Wi-Fi a una plataforma web desarrollada con Flask y MySQL. La plataforma muestra mediciones, estados, alertas y ubicaciones de las estaciones. También contempla un juego educativo de estrategia."
-                    data-modal-features="Estaciones IoT con ESP32|Sensores DHT22 (temperatura y humedad)|Sensor MQ-2 (humo y gases combustibles)|Indicador LED de estado|Comunicación Wi-Fi|Plataforma Flask + MySQL|Mediciones, estados, alertas y ubicaciones|Juego educativo de estrategia">
+                    data-modal-desc="ForestGuard AI es un proyecto de monitoreo IoT que busca detectar tempranamente condiciones ambientales asociadas al riesgo de incendios forestales. Utiliza estaciones basadas en ESP32, sensores de temperatura y humedad DHT22 y sensores MQ-2 para humo o gases combustibles. El microcontrolador procesa las lecturas, indica el estado mediante LED y envía información por Wi-Fi a una plataforma web desarrollada con Flask y MySQL."
+                    data-modal-features="Estaciones IoT con ESP32|Sensores DHT22|Sensor MQ-2|Indicador LED de estado|Comunicación Wi-Fi|Plataforma Flask + MySQL|Alertas y ubicaciones|Juego educativo de estrategia">
                     <div class="drag-wrap">
                         <button class="letter letter--hidden" data-letter="Y" inert
                             aria-label="Letra Y oculta">Y</button>
@@ -566,7 +594,7 @@
                     </header>
                     <p class="project-desc">Sistema de monitoreo IoT para detectar condiciones de riesgo de incendios
                         forestales. Estaciones con ESP32, sensores DHT22 y MQ-2 envían datos por Wi-Fi a una plataforma
-                        Flask + MySQL. Incluye panel de mediciones, alertas y un juego educativo de estrategia.</p>
+                        Flask + MySQL.</p>
                     <ul class="project-tech">
                         <li>ESP32</li>
                         <li>DHT22</li>
@@ -577,14 +605,15 @@
                         <li>MySQL</li>
                     </ul>
                     <div class="project-links">
-                        <a href="https://github.com/AnniMillara/ForestView" target="_blank" rel="noopener">Repositorio ↗</a>
+                        <a href="https://github.com/AnniMillara/ForestView" target="_blank" rel="noopener">Repositorio
+                            ↗</a>
                     </div>
                 </article>
 
                 <article class="project-card" data-category="web backend" data-size="medium"
                     data-project-id="querido-diario" data-reveal
-                    data-modal-desc="Querido Diario es una aplicación web de diario personal con cuentas de usuario y entradas privadas. Cada persona se registra, inicia sesión y gestiona sus propias entradas: crear, ver, editar y eliminar. Incluye un buscador dinámico que filtra mientras el usuario escribe y asegura que cada cuenta acceda únicamente a sus propios datos. Forma parte del recorrido de la certificación Full Stack (en curso)."
-                    data-modal-features="Registro e inicio de sesión|CRUD de entradas|Búsqueda dinámica al escribir|Aislamiento por usuario|Persistencia en MySQL|Pipenv para entorno y dependencias">
+                    data-modal-desc="Querido Diario es una aplicación web de diario personal con cuentas de usuario y entradas privadas. Cada persona se registra, inicia sesión y gestiona sus propias entradas: crear, ver, editar y eliminar. Incluye un buscador dinámico que filtra mientras el usuario escribe y asegura que cada cuenta acceda únicamente a sus propios datos."
+                    data-modal-features="Registro e inicio de sesión|CRUD de entradas|Búsqueda dinámica|Aislamiento por usuario|Persistencia en MySQL|Pipenv para entorno">
                     <div class="drag-wrap">
                         <button class="letter letter--hidden" data-letter="Q" inert
                             aria-label="Letra Q oculta">Q</button>
@@ -604,8 +633,7 @@
                                     style="--fa:-4px;--fd:-2s;--fs:4.4s;">w</span>eb</span> con cuentas · formación</p>
                     </header>
                     <p class="project-desc">Diario personal con cuentas y entradas privadas. Cada usuario se registra,
-                        inicia sesión y gestiona sus propias entradas con buscador dinámico. La persistencia y el
-                        aislamiento por usuario son parte central del proyecto.</p>
+                        inicia sesión y gestiona sus propias entradas con buscador dinámico.</p>
                     <ul class="project-tech">
                         <li>Python</li>
                         <li>Flask</li>
@@ -614,15 +642,16 @@
                         <li>Pipenv</li>
                     </ul>
                     <div class="project-links">
-                        <a href="https://github.com/AnniMillara/dear_diary" target="_blank" rel="noopener">Repositorio ↗</a>
+                        <a href="https://github.com/AnniMillara/dear_diary" target="_blank" rel="noopener">Repositorio
+                            ↗</a>
                         <a href="#contacto">Demo · pendiente ↗</a>
                     </div>
                 </article>
 
                 <article class="project-card" data-category="web backend academico" data-size="medium"
                     data-project-id="cinepedia" data-reveal
-                    data-modal-desc="Cinepedia es una aplicación web para compartir, descubrir y comentar películas, con perfiles de usuario y datos persistidos en base de datos. Implementa autenticación, rutas con Flask y plantillas Jinja2. No es un catálogo estático: la lógica de servidor y la base de datos son parte central del proyecto. En la evaluación de SkillNest obtuvo 94/100, resultado APROBADO · medalla PLATA."
-                    data-modal-features="Perfiles de usuario|Compartir y comentar películas|Autenticación|Base de datos relacional|Jinja2 templates|Evaluación SkillNest: 94/100 · PLATA">
+                    data-modal-desc="Cinepedia es una aplicación web para compartir, descubrir y comentar películas, con perfiles de usuario y datos persistidos en base de datos. En la evaluación de SkillNest obtuvo 94/100, resultado APROBADO · medalla PLATA."
+                    data-modal-features="Perfiles de usuario|Compartir y comentar películas|Autenticación|Base de datos relacional|Jinja2 templates|SkillNest 94/100 · PLATA">
                     <div class="drag-wrap">
                         <button class="letter letter--hidden" data-letter="C" inert
                             aria-label="Letra C oculta">C</button>
@@ -639,10 +668,8 @@
                         <h3>Cinepedia</h3>
                         <p class="project-type">aplicación web · SkillNest 94/100</p>
                     </header>
-                    <p class="project-desc">Web para compartir, descubrir y comentar películas con perfiles de
-                        usuario y datos en MySQL. En la evaluación de SkillNest obtuvo 94/100, resultado
-                        <strong>APROBADO · PLATA</strong>.
-                    </p>
+                    <p class="project-desc">Web para compartir, descubrir y comentar películas con perfiles de usuario y
+                        datos en MySQL. En SkillNest obtuvo 94/100, <strong>APROBADO · PLATA</strong>.</p>
                     <ul class="project-tech">
                         <li>Python</li>
                         <li>Flask</li>
@@ -650,13 +677,14 @@
                         <li>Jinja2</li>
                     </ul>
                     <div class="project-links">
-                        <a href="https://github.com/AnniMillara/certificacion_peliculas" target="_blank" rel="noopener">Repositorio ↗</a>
+                        <a href="https://github.com/AnniMillara/certificacion_peliculas" target="_blank"
+                            rel="noopener">Repositorio ↗</a>
                     </div>
                 </article>
 
                 <article class="project-card" data-category="academico backend web" data-size="medium"
                     data-project-id="apps-bd" data-reveal
-                    data-modal-desc="Conjunto de ejercicios y prototipos desarrollados durante la formación técnica. Cada proyecto integra frontend, backend y persistencia en un mismo flujo: formularios que escriben y leen de una base de datos, listados con filtros y operaciones CRUD sobre MySQL."
+                    data-modal-desc="Conjunto de ejercicios y prototipos desarrollados durante la formación técnica. Cada proyecto integra frontend, backend y persistencia en un mismo flujo."
                     data-modal-features="Formularios con validación|Lectura y escritura en MySQL|Operaciones CRUD|Listados con filtros|Plantillas con Jinja2">
                     <div class="drag-wrap">
                         <button class="letter letter--hidden" data-letter="T" inert
@@ -675,8 +703,7 @@
                         <p class="project-type">proyectos académicos</p>
                     </header>
                     <p class="project-desc">Ejercicios y prototipos con formularios que escriben y leen de MySQL,
-                        listados con filtros y operaciones CRUD. El foco fue integrar frontend, backend y persistencia
-                        en un mismo flujo.</p>
+                        listados con filtros y operaciones CRUD.</p>
                     <ul class="project-tech">
                         <li>HTML</li>
                         <li>CSS</li>
@@ -685,14 +712,15 @@
                         <li>MySQL</li>
                     </ul>
                     <div class="project-links">
-                        <a href="https://github.com/AnniMillara/Skillnest_FullStack_Python" target="_blank" rel="noopener">Repositorio ↗</a>
+                        <a href="https://github.com/AnniMillara/Skillnest_FullStack_Python" target="_blank"
+                            rel="noopener">Repositorio ↗</a>
                     </div>
                 </article>
 
                 <article class="project-card" data-category="academico" data-size="small" data-project-id="laboratorio"
                     data-reveal
-                    data-modal-desc="Actividades de laboratorio centradas en el ciclo de vida del hardware y la infraestructura básica: ensamblado, mantenimiento preventivo, instalación de sistemas operativos y puesta en marcha de equipos integrados en redes LAN. Incluye diagnóstico y registro de problemas frecuentes."
-                    data-modal-features="Ensamblado de equipos|Mantenimiento preventivo|Instalación de sistemas operativos|Configuración de redes LAN|Diagnóstico y registro de fallas">
+                    data-modal-desc="Actividades de laboratorio centradas en el ciclo de vida del hardware y la infraestructura básica."
+                    data-modal-features="Ensamblado de equipos|Mantenimiento preventivo|Instalación de SO|Configuración de redes LAN|Diagnóstico de fallas">
                     <button class="project-media media-olive" type="button"
                         aria-label="Ver detalle de Laboratorio y soporte">
                         <span class="project-bg" aria-hidden="true"></span>
@@ -705,9 +733,8 @@
                         <h3>Laboratorio y soporte</h3>
                         <p class="project-type">práctica académica</p>
                     </header>
-                    <p class="project-desc">Ensamblado, mantenimiento preventivo, instalación de sistemas operativos
-                        e integración de equipos en redes LAN. Registro de diagnósticos y solución de problemas
-                        frecuentes.</p>
+                    <p class="project-desc">Ensamblado, mantenimiento preventivo, instalación de sistemas operativos e
+                        integración de equipos en redes LAN.</p>
                     <ul class="project-tech">
                         <li>Hardware</li>
                         <li>Windows</li>
@@ -936,10 +963,10 @@
 
     <footer class="site-footer">
         <p>Hecho con <span class="nw">cur<span class="float-letter" data-letter="I" tabindex="0" role="button"
-                    aria-label="Letra I interactiva" style="--fa:-4px;--fd:-2s;--fs:4.8s;">i</span>osidad</span>,
-            c<span class="float-letter" data-letter="A" tabindex="0" role="button" aria-label="Letra A interactiva"
-                style="--fa:-4px;--fd:-1.5s;--fs:4.4s;">a</span>fé y v<span class="float-letter" data-letter="R"
-                tabindex="0" role="button" aria-label="Letra R interactiva"
+                    aria-label="Letra I interactiva" style="--fa:-4px;--fd:-2s;--fs:4.8s;">i</span>osidad</span>, c<span
+                class="float-letter" data-letter="A" tabindex="0" role="button" aria-label="Letra A interactiva"
+                style="--fa:-4px;--fd:-1.5s;--fs:4.4s;">a</span>fé y v<span class="float-letter" data-letter="A"
+                tabindex="0" role="button" aria-label="Letra A interactiva"
                 style="--fa:-4px;--fd:-3s;--fs:4.6s;">a</span>rios intentos · <span data-year>2026</span></p>
         <a href="#inicio">Volver arriba ↑</a>
     </footer>
@@ -974,7 +1001,6 @@
                 <button class="secrets-filter" type="button" data-cat="estaciones">Estaciones</button>
                 <button class="secrets-filter" type="button" data-cat="universo">Universo</button>
                 <button class="secrets-filter" type="button" data-cat="tecnologia">Tecnología</button>
-                <button class="secrets-filter" type="button" data-cat="animales">Animales</button>
                 <button class="secrets-filter" type="button" data-cat="especial">Especiales</button>
             </div>
             <div class="secrets-grid" id="secrets-grid"></div>
@@ -1002,6 +1028,7 @@
     <button class="music-toggle" type="button" id="music-toggle" hidden>♪ Activar música</button>
     <audio id="special-music" src="assets/audio/musica_especial.mp3" preload="none" loop></audio>
 
+    <div class="fx fx-sky" aria-hidden="true"></div>
     <div class="fx fx-rain" aria-hidden="true">
         <span style="--x:5%;--d:1.2s;--l:60vh;"></span><span style="--x:12%;--d:.9s;--l:70vh;"></span><span
             style="--x:18%;--d:1.5s;--l:65vh;"></span><span style="--x:25%;--d:1.1s;--l:80vh;"></span><span
@@ -1015,15 +1042,14 @@
     </div>
 
     <div class="fx fx-code" aria-hidden="true">
-        <span style="--x:8%;--d:8s;--delay:-2s;">{ }</span><span
-            style="--x:24%;--d:10s;--delay:-6s;">&lt;div&gt;</span><span
-            style="--x:40%;--d:9s;--delay:-4s;">=&gt;</span><span
-            style="--x:56%;--d:11s;--delay:-8s;">.map()</span><span
-            style="--x:72%;--d:7s;--delay:-1s;">if(x)</span><span
-            style="--x:88%;--d:12s;--delay:-5s;">&lt;/&gt;</span><span
-            style="--x:16%;--d:13s;--delay:-10s;">fn()</span><span
-            style="--x:64%;--d:9s;--delay:-3s;">return</span><span
-            style="--x:34%;--d:11s;--delay:-7s;">const</span><span style="--x:80%;--d:8s;--delay:-9s;">async</span>
+        <span style="--x:8%;--d:9s;--delay:-2s;">p</span>
+        <span style="--x:20%;--d:11s;--delay:-6s;">div</span>
+        <span style="--x:32%;--d:8s;--delay:-4s;">h1</span>
+        <span style="--x:44%;--d:10s;--delay:-8s;">a</span>
+        <span style="--x:56%;--d:12s;--delay:-1s;">span</span>
+        <span style="--x:68%;--d:9s;--delay:-5s;">html</span>
+        <span style="--x:80%;--d:11s;--delay:-3s;">body</span>
+        <span style="--x:90%;--d:10s;--delay:-7s;">img</span>
     </div>
 
     <div class="fx fx-galaxy" aria-hidden="true">
@@ -1043,22 +1069,13 @@
     <div class="fx fx-invierno" aria-hidden="true"></div>
     <div class="fx fx-otono" aria-hidden="true"></div>
     <div class="fx fx-verano" aria-hidden="true"></div>
-    <div class="fx fx-agujero" aria-hidden="true">
-        <div class="black-hole-core"></div>
-        <div class="black-hole-ring"></div>
-    </div>
 
-    <div class="shimeji shimeji--cuervo" data-animal="cuervo" hidden>
-        <img class="shimeji-sprite" src="assets/cuervo/cuervo_parado.png" alt="" aria-hidden="true">
-        <span class="shimeji-fallback" aria-hidden="true">cuervo · sprite pendiente</span>
-    </div>
-    <div class="shimeji shimeji--zorro" data-animal="zorro" hidden>
-        <img class="shimeji-sprite" src="assets/zorro/zorro_parado.png" alt="" aria-hidden="true">
-        <span class="shimeji-fallback" aria-hidden="true">zorro · sprite pendiente</span>
-    </div>
-    <div class="shimeji shimeji--mapache" data-animal="mapache" hidden>
-        <img class="shimeji-sprite" src="assets/raccoon/raccoon_stay.png" alt="" aria-hidden="true">
-        <span class="shimeji-fallback" aria-hidden="true">mapache · sprite pendiente</span>
+    <div class="fx fx-space" aria-hidden="true"></div>
+    <div class="fx fx-agujero" aria-hidden="true">
+        <div class="core"></div>
+        <div class="disk"></div>
+        <div class="ring"></div>
+        <div class="lens"></div>
     </div>
 </body>
 

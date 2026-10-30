@@ -1,0 +1,330 @@
+/* ═══════════════════════════════════════════
+   ANIMACIONES DEL BUG
+   ═══════════════════════════════════════════ */
+@keyframes bug-float {
+    0%, 100% { transform: rotate(var(--bug-angle, -4deg)) translate(0,0); }
+    50% { transform: rotate(var(--bug-angle, 4deg)) translate(-2px,-6px); }
+}
+
+@keyframes bug-walk {
+    0% { transform: rotate(var(--bug-angle, -3deg)) translateY(0) scale(1.05); }
+    25% { transform: rotate(var(--bug-angle, 2deg)) translateY(-2px) scale(1.08); }
+    50% { transform: rotate(var(--bug-angle, 3deg)) translateY(0) scale(1.05); }
+    75% { transform: rotate(var(--bug-angle, -2deg)) translateY(-1px) scale(1.08); }
+    100% { transform: rotate(var(--bug-angle, -3deg)) translateY(0) scale(1.05); }
+}
+
+@keyframes bug-munch {
+    0% { transform: scale(1) rotate(0); }
+    25% { transform: scale(1.35) rotate(-12deg) translateX(4px); }
+    55% { transform: scale(.85) rotate(8deg) translateX(-3px); }
+    100% { transform: scale(1) rotate(-8deg) translateX(0); }
+}
+
+/* El poto del bug se balancea de un lado a otro mientras camina */
+@keyframes bug-butt-wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(16deg); }
+    75% { transform: rotate(-16deg); }
+}
+
+/* El cuerpo rota desde su parte superior (donde está la cabeza),
+   así solo el poto se balancea */
+.hero-code-bug .bug-body {
+    transform-origin: 8px 5.2px;
+    transform-box: view-box;
+    will-change: transform;
+}
+
+.hero-code-bug.is-walking .bug-body {
+    animation: bug-butt-wiggle var(--wiggle-speed, 0.4s) ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════
+   AGUJERO NEGRO
+   ═══════════════════════════════════════════ */
+@keyframes agujero-core-pulse {
+    0%, 100% { box-shadow: 0 0 60px 20px rgba(120,40,140,.45), 0 0 140px 50px rgba(60,20,80,.25); }
+    50% { box-shadow: 0 0 90px 30px rgba(120,40,140,.6), 0 0 200px 70px rgba(60,20,80,.35); }
+}
+@keyframes agujero-disk-spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes agujero-ring-spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Fondo espacial: nebulosa que respira */
+@keyframes space-nebula-breathe {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+@keyframes space-stars-twinkle {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════
+   LLUVIA
+   ═══════════════════════════════════════════ */
+@keyframes rain-drop-grow {
+    0% { opacity: 0; transform: scale(.3); }
+    25% { opacity: 0.85; }
+    100% { opacity: 0.92; transform: scale(1); }
+}
+@keyframes rain-drop-fall {
+    to { transform: translateY(calc(var(--l, 60vh) + 120vh)); }
+}
+@keyframes window-drops {
+    0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+    100% { background-position: 20px 220px, -30px 260px, 15px 180px, -20px 240px; }
+}
+
+/* ═══════════════════════════════════════════
+   CÓDIGO / BINARIO
+   ═══════════════════════════════════════════ */
+@keyframes code-fall {
+    0% { transform: translateY(0); opacity: 0; }
+    10% { opacity: .55; }
+    90% { opacity: .55; }
+    100% { transform: translateY(110vh); opacity: 0; }
+}
+@keyframes code-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: .3; }
+}
+@keyframes code-float {
+    0%, 100% { transform: translate(0,0) rotate(0); }
+    50% { transform: translate(0,-12px) rotate(2deg); }
+}
+@keyframes code-drift {
+    0%, 100% { transform: translate(0,0) rotate(0); }
+    33% { transform: translate(8px,-4px) rotate(4deg); }
+    66% { transform: translate(-6px,6px) rotate(-3deg); }
+}
+@keyframes code-sway {
+    0%, 100% { transform: translateX(0) rotate(-2deg); }
+    50% { transform: translateX(14px) rotate(2deg); }
+}
+@keyframes code-pulse {
+    0%, 100% { opacity: var(--cs-op, 0.2); transform: scale(1); }
+    50% { opacity: calc(var(--cs-op, 0.2) * 1.4); transform: scale(1.08); }
+}
+@keyframes binary-fall {
+    0% { transform: translateY(0); opacity: 0; }
+    15% { opacity: .7; }
+    85% { opacity: .7; }
+    100% { transform: translateY(110vh); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════
+   GALAXIA
+   ═══════════════════════════════════════════ */
+@keyframes nebula-drift {
+    0%, 100% { transform: translate(0,0); }
+    50% { transform: translate(-20px,-15px); }
+}
+@keyframes stars-twinkle {
+    from { opacity: .7; }
+    to { opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════
+   ESTACIONES
+   ═══════════════════════════════════════════ */
+@keyframes cherry-fall {
+    0% { transform: translateY(0) rotate(0) translateX(0); opacity: 0; }
+    8% { opacity: .9; }
+    25% { transform: translateY(30vh) rotate(120deg) translateX(20px); }
+    50% { transform: translateY(60vh) rotate(240deg) translateX(-15px); }
+    75% { transform: translateY(90vh) rotate(360deg) translateX(25px); }
+    92% { opacity: .9; }
+    100% { transform: translateY(120vh) rotate(540deg) translateX(0); opacity: 0; }
+}
+@keyframes petal-fall {
+    0% { transform: translateY(0) rotate(0); opacity: 0; }
+    8% { opacity: .75; }
+    92% { opacity: .75; }
+    100% { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+}
+@keyframes snow-fall {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: .9; }
+    90% { opacity: .9; }
+    100% { transform: translateY(120vh) translateX(20px); opacity: 0; }
+}
+@keyframes leaf-fall {
+    0% { transform: translateY(0) rotate(0) translateX(0); opacity: 0; }
+    10% { opacity: .8; }
+    25% { transform: translateY(30vh) rotate(90deg) translateX(15px); }
+    50% { transform: translateY(60vh) rotate(180deg) translateX(-10px); }
+    75% { transform: translateY(90vh) rotate(270deg) translateX(20px); }
+    90% { opacity: .8; }
+    100% { transform: translateY(120vh) rotate(360deg) translateX(0); opacity: 0; }
+}
+@keyframes sparkle-shimmer {
+    0%, 100% { opacity: .15; transform: scale(.6); }
+    50% { opacity: .85; transform: scale(1.35); }
+}
+
+/* ═══════════════════════════════════════════
+   TORNADO
+   ═══════════════════════════════════════════ */
+@keyframes orbit-particle {
+    0% { transform: translate(-50%,-50%) rotate(0deg) translateX(var(--orbit-r,200px)) rotate(0deg); opacity: 0; }
+    10% { opacity: .7; }
+    90% { opacity: .7; }
+    100% { transform: translate(-50%,-50%) rotate(360deg) translateX(var(--orbit-r,200px)) rotate(-360deg); opacity: 0; }
+}
+@keyframes page-shake {
+    0% { transform: translate(0,0) rotate(0); }
+    25% { transform: translate(-1px,1px) rotate(-0.05deg); }
+    50% { transform: translate(1px,-1px) rotate(0.05deg); }
+    75% { transform: translate(-1px,-1px) rotate(-0.03deg); }
+    100% { transform: translate(1px,1px) rotate(0); }
+}
+@keyframes orbit-badge {
+    from { transform: rotate(0deg) translateX(24px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(24px) rotate(-360deg); }
+}
+@keyframes orbit-logo {
+    from { transform: rotate(0deg) translateX(6px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(6px) rotate(-360deg); }
+}
+@keyframes orbit-tape {
+    from { transform: translateX(-50%) rotate(0deg) translateX(18px) rotate(0deg); }
+    to { transform: translateX(-50%) rotate(360deg) translateX(18px) rotate(-360deg); }
+}
+@keyframes orbit-small {
+    from { transform: rotate(0deg) translateX(4px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(4px) rotate(-360deg); }
+}
+@keyframes tornado-throw {
+    0% { transform: translate(0,0) rotate(0) scale(1); }
+    4% { transform: translate(calc(var(--tx) * .02), calc(var(--ty) * -.05)) rotate(calc(var(--rot) * .1)) scale(1.01); }
+    10% { transform: translate(calc(var(--tx) * -.1), calc(var(--ty) * -.2)) rotate(calc(var(--rot) * -.25)) scale(1.02); }
+    15% { transform: translate(calc(var(--tx) * .2), calc(var(--ty) * -.3)) rotate(calc(var(--rot) * .35)) scale(1.03); }
+    25% { transform: translate(calc(var(--tx) * -.5), calc(var(--ty) * .7)) rotate(calc(var(--rot) * -.7)) scale(.98); }
+    35% { transform: translate(calc(var(--tx) * 1), calc(var(--ty) * -.8)) rotate(calc(var(--rot) * 1.2)) scale(1.04); }
+    45% { transform: translate(calc(var(--tx) * -1.2), calc(var(--ty) * .9)) rotate(calc(var(--rot) * -1.4)) scale(.95); }
+    55% { transform: translate(calc(var(--tx) * 1.4), calc(var(--ty) * .5)) rotate(calc(var(--rot) * 1.6)) scale(1.05); }
+    65% { transform: translate(calc(var(--tx) * -.9), calc(var(--ty) * -1.1)) rotate(calc(var(--rot) * -1.5)) scale(.97); }
+    75% { transform: translate(calc(var(--tx) * 1.1), calc(var(--ty) * 1.2)) rotate(calc(var(--rot) * 1.3)) scale(1.02); }
+    85% { transform: translate(calc(var(--tx) * .6), calc(var(--ty) * .5)) rotate(calc(var(--rot) * .8)) scale(1.02); }
+    92% { transform: translate(calc(var(--tx) * 1.1), calc(var(--ty) * 1.05)) rotate(calc(var(--rot) * 1.1)) scale(.98); }
+    100% { transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(1); }
+}
+@keyframes loose-blink {
+    0%, 100% { outline-color: var(--accent); filter: brightness(1); }
+    50% { outline-color: transparent; filter: brightness(1.06); }
+}
+@keyframes card-drop {
+    0% { transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(1); opacity: 1; }
+    12% { transform: translate(calc(var(--tx) - 12px), calc(var(--ty) - 25px)) rotate(calc(var(--rot) - 8deg)) scale(1.03); opacity: 1; }
+    100% { transform: translate(calc(var(--tx) + 60px), calc(var(--ty) + 160vh)) rotate(calc(var(--rot) + 220deg)) scale(.5); opacity: 0.1; }
+}
+
+/* ═══════════════════════════════════════════
+   SUPER
+   ═══════════════════════════════════════════ */
+@keyframes dance-wiggle {
+    0%, 100% { transform: rotate(-3deg) translateY(0); }
+    25% { transform: rotate(2deg) translateY(-8px); }
+    50% { transform: rotate(-2deg) translateY(0); }
+    75% { transform: rotate(3deg) translateY(-6px); }
+}
+@keyframes super-rainbow {
+    0% { color: #ff4d6d; }
+    25% { color: #ffb703; }
+    50% { color: #06d6a0; }
+    75% { color: #4cc9f0; }
+    100% { color: #ff4d6d; }
+}
+
+/* ═══════════════════════════════════════════
+   DECORATIVOS
+   ═══════════════════════════════════════════ */
+@keyframes floaty-deco {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+@keyframes drift-deco {
+    0%, 100% { transform: translate(0,0) rotate(0); }
+    33% { transform: translate(4px,-2px) rotate(8deg); }
+    66% { transform: translate(-2px,4px) rotate(-4deg); }
+}
+@keyframes rotate-deco {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+@keyframes breathe-deco {
+    0%, 100% { opacity: var(--deco-op, 0.25); transform: scale(1); }
+    50% { opacity: calc(var(--deco-op, 0.25) * 0.35); transform: scale(.9); }
+}
+@keyframes float-letter-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(var(--fa, -4px)); }
+}
+@keyframes chip-pop {
+    from { transform: scale(.4); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+@keyframes logo-spin {
+    0%, 100% { transform: rotate(-12deg) scale(1); }
+    50% { transform: rotate(8deg) scale(1.06); }
+}
+@keyframes floaty-slow {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-12px) rotate(20deg); }
+}
+@keyframes portrait-float {
+    0%, 100% { transform: translateY(0) rotate(-1deg); }
+    50% { transform: translateY(-6px) rotate(-2deg); }
+}
+@keyframes badge-orbit {
+    0%, 100% { transform: rotate(8deg) translateY(0); }
+    25% { transform: rotate(14deg) translateY(-4px); }
+    75% { transform: rotate(4deg) translateY(2px); }
+}
+@keyframes tape-wobble {
+    0%, 100% { transform: translateX(-50%) rotate(-3deg); }
+    50% { transform: translateX(-50%) rotate(-1deg); }
+}
+@keyframes hand-tilt {
+    0%, 100% { transform: rotate(-1deg); }
+    50% { transform: rotate(1deg); }
+}
+@keyframes gentle-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+@keyframes num-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+}
+@keyframes orbit-slow {
+    to { transform: rotate(360deg); }
+}
+@keyframes pulse-dot {
+    0% { box-shadow: 0 0 0 0 rgba(34,197,94,.7); }
+    70% { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
+    100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+}
+@keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+}
+@keyframes cmd-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+@keyframes cmd-pulse-text {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+@keyframes super-band-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.03); opacity: 0.9; }
+}

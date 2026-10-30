@@ -1,0 +1,519 @@
+:root {
+    --rain-mask-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 300' preserveAspectRatio='none'%3E%3Crect x='0' y='0' width='100' height='260' fill='white'/%3E%3Ccircle cx='3' cy='260' r='14' fill='white'/%3E%3Ccircle cx='20' cy='260' r='17' fill='white'/%3E%3Ccircle cx='38' cy='260' r='12' fill='white'/%3E%3Ccircle cx='55' cy='260' r='16' fill='white'/%3E%3Ccircle cx='72' cy='260' r='13' fill='white'/%3E%3Ccircle cx='88' cy='260' r='17' fill='white'/%3E%3Ccircle cx='98' cy='260' r='12' fill='white'/%3E%3C/svg%3E");
+}
+
+/* ═══════════════════════════════════════════
+   PALETAS DE LAS 11 TEMÁTICAS
+   ═══════════════════════════════════════════ */
+body[data-effect~="cielo"] {
+    --bg: #d6ecf6;
+    --bg-alt: #b8dcef;
+    --ink: #0e2430;
+    --ink-soft: #1f4256;
+    --line: #7cb4d4;
+    --accent: #1a5a80;
+    --accent-soft: #2a6a90;
+    --surface: #f0f8fd;
+    --surface-soft: #d6ecf6;
+    --on-accent: #ffffff;
+    --forest: #2c6b8c;
+}
+
+body[data-effect~="lluvia"] {
+    --bg: #d8dfe4;
+    --bg-alt: #c4ccd2;
+    --ink: #1a2429;
+    --ink-soft: #3a4a58;
+    --line: #90a0ac;
+    --accent: #2a4a62;
+    --accent-soft: #3f5f78;
+    --surface: #ecf1f4;
+    --surface-soft: #d8dfe4;
+    --on-accent: #ffffff;
+    --forest: #38434c;
+}
+
+body[data-effect~="primavera"] {
+    --bg: #eef4e8;
+    --bg-alt: #dcebd0;
+    --ink: #222e20;
+    --ink-soft: #3d4a3a;
+    --line: #a8bc9c;
+    --accent: #8a3d54;
+    --accent-soft: #b0546e;
+    --surface: #f8fcf4;
+    --surface-soft: #dcebd0;
+    --on-accent: #ffffff;
+    --forest: #4a6a4a;
+    --sage: #a8c8a0;
+    --olive: #8aa880;
+    --caramel: #e8c8a8;
+}
+
+body[data-effect~="invierno"] {
+    --bg: #eef2f5;
+    --bg-alt: #dde6ec;
+    --ink: #16202a;
+    --ink-soft: #39495a;
+    --line: #9cb4c6;
+    --accent: #2c5470;
+    --accent-soft: #3d6b8a;
+    --surface: #f8fbfd;
+    --surface-soft: #dde6ec;
+    --on-accent: #ffffff;
+    --forest: #3a4a58;
+}
+
+body[data-effect~="otono"] {
+    --bg: #f6efe3;
+    --bg-alt: #ebdcc5;
+    --ink: #2a1d12;
+    --ink-soft: #4d3822;
+    --line: #bd9c7a;
+    --accent: #8a3a18;
+    --accent-soft: #a84a1c;
+    --surface: #faf5ea;
+    --surface-soft: #ebdcc5;
+    --on-accent: #ffffff;
+    --forest: #5a3a20;
+    --caramel: #c8955a;
+    --olive: #8a7a4a;
+}
+
+body[data-effect~="verano"] {
+    --bg: #fdf6e8;
+    --bg-alt: #f8eacb;
+    --ink: #2a1c08;
+    --ink-soft: #4d3818;
+    --line: #d4ac68;
+    --accent: #8a4a10;
+    --accent-soft: #b86420;
+    --surface: #fffaf0;
+    --surface-soft: #f8eacb;
+    --on-accent: #ffffff;
+    --forest: #8a5010;
+    --caramel: #f0c060;
+}
+
+body[data-effect~="galaxia"] {
+    --bg: #0a0720;
+    --bg-alt: #150d35;
+    --ink: #f5f0ff;
+    --ink-soft: #c8b8ea;
+    --line: #2e2060;
+    --accent: #e8a8ff;
+    --accent-soft: #c080e0;
+    --surface: #150d35;
+    --surface-soft: #1f1450;
+    --on-accent: #0a0720;
+    --forest: #1f1450;
+}
+
+body[data-effect~="codigo"] {
+    --bg: #1e1e1e;
+    --bg-alt: #252526;
+    --ink: #e8e8e8;
+    --ink-soft: #b8b8b8;
+    --line: #4a4a52;
+    --accent: #4a9eff;
+    --accent-soft: #6db3ff;
+    --surface: #2d2d30;
+    --surface-soft: #252526;
+    --on-accent: #0f0f0f;
+    --forest: #1a4a6a;
+    --caramel: #e8a880;
+    --sage: #8ac87a;
+}
+
+body[data-effect~="binario"] {
+    --bg: #051005;
+    --bg-alt: #0a1e0a;
+    --ink: #a8f0a8;
+    --ink-soft: #78c878;
+    --line: #1a4a1a;
+    --accent: #4ad84a;
+    --accent-soft: #3ab83a;
+    --surface: #0a1e0a;
+    --surface-soft: #0a2a0a;
+    --on-accent: #001400;
+    --forest: #0a5a0a;
+}
+
+body[data-effect~="bosquejo"] {
+    --bg: #f4f0e6;
+    --bg-alt: #ece4d0;
+    --ink: #2a2018;
+    --ink-soft: #4a3a2a;
+    --line: #6a5a4a;
+    --accent: #2a2018;
+    --accent-soft: #4a3a2a;
+    --surface: #faf5e8;
+    --surface-soft: #ece4d0;
+    --on-accent: #f4f0e6;
+    --forest: #6a5a4a;
+}
+
+body[data-effect~="super"] {
+    --bg: #f7f1ea;
+    --bg-alt: #ece0d2;
+    --ink: #3d2f26;
+    --ink-soft: #6a5848;
+    --line: #d0bca8;
+    --accent: #c9856e;
+    --accent-soft: #e0a68a;
+    --surface: #fffaf3;
+    --surface-soft: #f2e6d8;
+    --on-accent: #fffaf3;
+    --forest: #a89280;
+    --caramel: #d4b896;
+    --sage: #c3cbb3;
+}
+
+/* section-dark se vuelve clara cuando hay efecto */
+body[data-effect~="cielo"] .section-dark,
+body[data-effect~="lluvia"] .section-dark,
+body[data-effect~="primavera"] .section-dark,
+body[data-effect~="invierno"] .section-dark,
+body[data-effect~="otono"] .section-dark,
+body[data-effect~="verano"] .section-dark,
+body[data-effect~="galaxia"] .section-dark,
+body[data-effect~="codigo"] .section-dark,
+body[data-effect~="binario"] .section-dark,
+body[data-effect~="bosquejo"] .section-dark,
+body[data-effect~="super"] .section-dark {
+    background: var(--bg-alt);
+    color: var(--ink);
+}
+
+/* Contraste en .section-dark sin efectos */
+body:not([data-effect]) .section-dark .marker-num,
+body:not([data-effect]) .section-dark .timeline-date,
+body:not([data-effect]) .section-dark .timeline-tags span,
+body:not([data-effect]) .section-dark .contact-label,
+body:not([data-effect]) .section-dark .cert-badge,
+body:not([data-effect]) .section-dark .cert-link,
+body:not([data-effect]) .section-dark .formation-badge {
+    color: var(--caramel) !important;
+}
+
+body:not([data-effect]) .section-dark .timeline-item::before {
+    background-color: var(--caramel) !important;
+}
+
+body:not([data-effect]) .section-dark .timeline-body p {
+    color: rgba(244, 240, 230, .88) !important;
+}
+
+body:not([data-effect]) .section-dark .timeline-body h3 {
+    color: #F4F0E6 !important;
+}
+
+body:not([data-effect]) .section-dark .formation-feature {
+    border-left-color: var(--caramel);
+}
+
+body:not([data-effect]) .section-dark .skill-card {
+    background: rgba(244, 240, 230, .08) !important;
+    border-color: rgba(244, 240, 230, .22) !important;
+}
+
+body:not([data-effect]) .section-dark .skill-card .skill-tag,
+body:not([data-effect]) .section-dark .skill-card .skill-toggle {
+    color: var(--caramel) !important;
+    border-color: var(--caramel) !important;
+}
+
+body:not([data-effect]) .section-dark .skill-card .skill-name {
+    color: #F4F0E6 !important;
+}
+
+body:not([data-effect]) .section-dark .module-card {
+    background: rgba(244, 240, 230, .06) !important;
+    border-color: rgba(244, 240, 230, .18) !important;
+}
+
+body:not([data-effect]) .section-dark .module-card .module-year,
+body:not([data-effect]) .section-dark .module-card .module-toggle {
+    color: var(--caramel) !important;
+}
+
+body:not([data-effect]) .section-dark .module-card .module-title {
+    color: rgba(244, 240, 230, .75) !important;
+}
+
+body:not([data-effect]) .section-dark .module-card li {
+    color: rgba(244, 240, 230, .85) !important;
+}
+
+body:not([data-effect]) .section-dark .module-card li::before {
+    color: var(--caramel);
+}
+
+/* ═══════════════════════════════════════════
+   CÓDIGO — modo fuente
+   ═══════════════════════════════════════════ */
+body.is-code-mode {
+    background: #1e1e1e !important;
+    color: #d4d4d4 !important;
+}
+
+body.is-code-mode .site-header,
+body.is-code-mode .section,
+body.is-code-mode .hero,
+body.is-code-mode .site-footer,
+body.is-code-mode .section-cream,
+body.is-code-mode .section-dark {
+    background: #1e1e1e !important;
+    color: #d4d4d4 !important;
+    border-color: #3e3e42 !important;
+}
+
+body.is-code-mode h1,
+body.is-code-mode h2,
+body.is-code-mode h3,
+body.is-code-mode p,
+body.is-code-mode li,
+body.is-code-mode .display,
+body.is-code-mode .hero-title,
+body.is-code-mode .marker-label,
+body.is-code-mode .project-desc,
+body.is-code-mode .hero-lead,
+body.is-code-mode .kicker {
+    color: #d4d4d4 !important;
+    font-family: "SFMono-Regular", Consolas, monospace !important;
+}
+
+body.is-code-mode .display em,
+body.is-code-mode .hero-title em,
+body.is-code-mode .marker-num {
+    color: #569cd6 !important;
+    font-family: "SFMono-Regular", Consolas, monospace !important;
+}
+
+body.is-code-mode a,
+body.is-code-mode button {
+    color: #569cd6 !important;
+    font-family: "SFMono-Regular", Consolas, monospace !important;
+}
+
+body.is-code-mode .project-media,
+body.is-code-mode .hero-frame,
+body.is-code-mode .cert-card,
+body.is-code-mode .skill-card,
+body.is-code-mode .module-card,
+body.is-code-mode .formation-feature,
+body.is-code-mode .note-card {
+    background: #252526 !important;
+    border-color: #3e3e42 !important;
+    color: #d4d4d4 !important;
+    box-shadow: 0 0 20px -4px rgba(74, 158, 255, .25) !important;
+}
+
+body.is-code-mode .project-type,
+body.is-code-mode .skill-body,
+body.is-code-mode .timeline-body p,
+body.is-code-mode .project-tech li {
+    color: #9d9d9d !important;
+    font-family: "SFMono-Regular", Consolas, monospace !important;
+}
+
+body.is-code-mode [data-code-tag]:not(img):not(video)::before {
+    content: "<" attr(data-code-tag) ">";
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.7em;
+    color: #569cd6;
+    margin-right: 0.35em;
+    display: inline;
+    vertical-align: baseline;
+    opacity: 0.95;
+    font-weight: 500;
+}
+
+body.is-code-mode [data-code-tag]:not(img):not(video)::after {
+    content: "</" attr(data-code-tag) ">";
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.7em;
+    color: #569cd6;
+    margin-left: 0.35em;
+    display: inline;
+    vertical-align: baseline;
+    opacity: 0.95;
+    font-weight: 500;
+}
+
+/* ─── Placeholder absoluto para <img>/<video> ─── */
+.code-img-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+    box-sizing: border-box;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.7rem;
+    color: #569cd6;
+    line-height: 1.4;
+    font-weight: 500;
+    text-align: center;
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    z-index: 5;
+    border: 1px dashed #569cd6;
+    border-radius: 3px;
+    background: transparent;
+    pointer-events: none;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+/* Ocultamos capas decorativas y elementos que se superponían */
+body.is-code-mode .project-bg,
+body.is-code-mode .project-image-note,
+body.is-code-mode .project-num,
+body.is-code-mode .project-expand,
+body.is-code-mode .card-code,
+body.is-code-mode .photo-placeholder,
+body.is-code-mode .photo-corner-deco,
+body.is-code-mode .photo-fragment,
+body.is-code-mode .hero-photo-mask,
+body.is-code-mode .wet-layer,
+body.is-code-mode .tape,
+body.is-code-mode .frame-back-hint,
+body.is-code-mode .frame-flip-trigger,
+body.is-code-mode .video-placeholder,
+body.is-code-mode .hero-code-bug {
+    display: none !important;
+}
+
+body.is-code-mode .hero-photo {
+    background: transparent !important;
+}
+
+body.is-code-mode .project-media,
+body.is-code-mode .hero-frame,
+body.is-code-mode .video-frame,
+body.is-code-mode .video-inner,
+body.is-code-mode .hero-photo {
+    position: relative;
+}
+
+.code-mode-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #252526;
+    border-bottom: 1px solid #3e3e42;
+    padding: 0.5rem 1rem;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.75rem;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #d4d4d4;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .5);
+}
+
+.code-mode-header .cmd {
+    color: #8ac87a;
+}
+
+.code-mode-header .cmd-arg {
+    color: #d4d4d4;
+}
+
+body.is-code-mode .site-header {
+    margin-top: 30px;
+}
+
+/* ═══════════════════════════════════════════
+   BINARIO — modo terminal CMD
+   ═══════════════════════════════════════════ */
+body.is-binario-cmd {
+    font-family: "Consolas", "Courier New", monospace !important;
+}
+
+body.is-binario-cmd::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9997;
+    background: repeating-linear-gradient(0deg,
+            transparent 0px, transparent 2px,
+            rgba(0, 30, 0, 0.06) 3px, rgba(0, 30, 0, 0.06) 4px);
+    mix-blend-mode: multiply;
+}
+
+body.is-binario-cmd .display,
+body.is-binario-cmd .hero-title,
+body.is-binario-cmd h1,
+body.is-binario-cmd h2,
+body.is-binario-cmd h3,
+body.is-binario-cmd p,
+body.is-binario-cmd li,
+body.is-binario-cmd a,
+body.is-binario-cmd button {
+    font-family: "Consolas", "Courier New", monospace !important;
+    text-shadow: 0 0 4px rgba(74, 216, 74, .25);
+}
+
+.binario-cmd-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #051005;
+    border-bottom: 1px solid #1a4a1a;
+    padding: 0.5rem 1rem;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 0.78rem;
+    z-index: 9999;
+    color: #a8f0a8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .6);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.binario-cmd-header .cmd-line {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.binario-cmd-header .cmd-prompt {
+    color: #4ad84a;
+    font-weight: 700;
+}
+
+.binario-cmd-header .cmd-text {
+    color: #a8f0a8;
+}
+
+.binario-cmd-header .cmd-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1em;
+    background: #4ad84a;
+    animation: cmd-blink 1s steps(2) infinite;
+    vertical-align: text-bottom;
+}
+
+.binario-cmd-header .cmd-status {
+    font-size: 0.65rem;
+    color: #78c878;
+    gap: 1rem;
+    padding-left: 0.2rem;
+}
+
+.binario-cmd-header .cmd-status span:last-child {
+    animation: cmd-pulse-text 1.5s ease-in-out infinite;
+}
+
+body.is-binario-cmd .site-header {
+    margin-top: 34px;
+}
